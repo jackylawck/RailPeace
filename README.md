@@ -1,10 +1,10 @@
 # RailPeace 鐵和平 🚇🕊️
 
-> **香港港鐵通勤低摩擦微調解心法卡**  
-> *A Low-Friction Commuter Mediation Cheatsheet for the Hong Kong MTR.*
+> **香港鐵路通勤微調解心法卡**  
+> *A Low-Friction Transit Mediation Cheatsheet for Hong Kong Commuters.*
 
-[![CI & Integrity Check](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml/badge.svg)](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jackylawck/RailPeace/blob/main/LICENSE)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-success.svg)](https://jackylawck.github.io/RailPeace/)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)](#-技術規格與架構-tech-stack)
 
@@ -13,11 +13,11 @@
 ## 繁體中文
 
 ### 💡 專案緣起 (Origin)
-香港港鐵（MTR）是全球最繁忙、最密集的鐵路系統之一。在上下班高峰期，車廂內「人貼人」、車門前「門神塞路」等現象極易觸發通勤者的急性焦慮與口角衝突。
+香港鐵路系統（包括各繁忙地下鐵網絡）是全球客運量最高、最密集的公共運輸之一。在上下班高峰期，車廂內「人貼人」、車門前「門神塞路」等空間擁擠極易觸發通勤者的急性焦慮與口角衝突。
 
 **RailPeace 鐵和平** 是一項純粹的公民科技（Civic Tech）實驗。我們融合**專業調解心理學（Mediation / ADR）**與**微觀人際溝通心法**，將話術精煉至高壓環境可負擔的短句，提供：
-1. **卸力緩衝**：以香港本地社交潤滑劑「唔好意思」開頭，消除命令感。
-2. **利益共贏**：陳述即時行動對彼此的實質好處（如「移入少少等後面都上到」、「出咗大家都有位企」）。
+1. **卸力緩衝**：以香港本地社交潤滑劑「唔好意思」開頭，消除命令感與對抗性。
+2. **利益共贏**：陳述即時行動對彼此的實質好處（如「移入少少等後面都上到」、「等我入中間企，唔塞住你個位」）。
 3. **退路防線**：為每個情境設立明確的嘗試上限（`maxAttempts`）與不可開口紅線（`abortConditions`），安全第一，不爭一時。
 
 ---
@@ -26,7 +26,7 @@
 
 * **調解專家審定心法**：
   * **日常 Top 3 核心**：聚焦解決「門口塞住」、「移入走廊」、「人貼人輕碰」三大高頻摩擦。
-  * **非語言替代方案 (Silent Options)**：為社恐、聽障、語言不通或高壓情境提供安全體態指引（如「眼神接觸 + 掌心微示意」，嚴禁具挑釁感的手指指人）。
+  * **非語言替代方案 (Silent Options)**：為社恐、聽障、語言不通或高壓情境提供安全體態指引（如「眼神望向走廊 + 掌心微示意」，嚴禁具挑釁感的手指指人）。
   * **衝突熔斷機制**：面對挑釁或攻擊性對象時，嚴格鎖定「零對抗、禁開口、避開視線並退後」。
 * **極致工程衛生 (Engineering Hygiene)**：
   * **Zero `innerHTML`**：全站動態節點皆透過安全 DOM Token 解析與 `replaceChildren()` 掛載，杜絕 XSS 隱患。
@@ -50,28 +50,28 @@
 ## English
 
 ### 💡 Overview
-The Hong Kong MTR is one of the most efficient yet densely packed transit networks in the world. During peak rush hours, tight physical proximity and blocked doorways can escalate into acute commuter friction.
+The Hong Kong rapid transit network is among the world's most heavily utilized and densely packed urban rail systems. During peak rush hours, acute spatial tension and congested doorways frequently trigger commuter friction and verbal altercations.
 
 **RailPeace** is an open-source civic tech micro-tool grounded in **professional mediation and Alternative Dispute Resolution (ADR) principles**. It offers commuters practical, low-cognitive-load communication patterns designed to:
-1. **De-escalate Instantly**: Leverage culturally resonant buffers (*"Excuse me" / "唔好意思"*) to neutralize perceived aggression.
-2. **Highlight Mutual Benefit**: Frame movements around collective spatial relief rather than personal entitlement.
-3. **Define Exit Boundaries**: Provide explicit attempt limits (`maxAttempts`) and abort conditions (`abortConditions`) to prioritize personal safety.
+1. **De-escalate Instantly**: Leverage culturally resonant verbal buffers (*"Excuse me" / "唔好意思"*) to disarm perceived confrontation.
+2. **Frame Mutual Benefit**: Center requests on collective spatial relief rather than personal entitlement (e.g., *"Moving in lets folks behind board"* or *"Moving center so I don't crowd your space"*).
+3. **Establish Exit Boundaries**: Define strict attempt limits (`maxAttempts`) and safety abort criteria (`abortConditions`) to ensure personal safety always supersedes argument.
 
 ---
 
 ### 🌟 Technical Highlights
 
-* **100% Native Vanilla Stack**: Built with vanilla ES Modules, native DOM APIs, and zero build/runtime dependencies.
-* **Security & Clean Architecture**: Zero `innerHTML` usage across the entire codebase; safe token-based text parser (`dom-utils.js`).
-* **Offline-First PWA**: Configured with strict Service Worker caching strategies ensuring seamless offline availability inside underground tunnels.
-* **Zero Glitch Transitions**: WAAPI-driven toasts with cancellation tracking, eliminating race conditions and unnecessary DOM reflow hacks.
-* **Accessibility (a11y)**: Complete `aria-pressed`, `aria-expanded`, and `:focus-visible` styling for inclusive transit usability.
+* **100% Native Vanilla Stack**: Built with vanilla ES Modules, native DOM APIs, and zero build or runtime dependencies.
+* **Security & Clean Architecture**: Zero `innerHTML` usage across the codebase; deterministic token parsing via `dom-utils.js`.
+* **Offline-First PWA**: Configured with smart Service Worker caching (Network First for navigation, Cache First for assets) guaranteeing reliable offline use inside underground transit tunnels.
+* **Zero-Glitch Animations**: WAAPI-driven toasts with cancellation tracking, eliminating race conditions and layout thrashing hacks.
+* **Accessibility (a11y)**: Accessible focus rings (`:focus-visible`), explicit `aria-pressed`, and `aria-expanded` toggle states.
 
 ---
 
 ## 🛡️ 合規與資料治理 (Governance & Compliance)
 
-本專案遵循全球合規治理與透明度標準，詳細條款請參閱獨立聲明文件：
+本專案遵循透明合規治理標準，詳細條款請參閱獨立文件：
 * **私隱政策與零資料收集聲明**：詳見 [PRIVACY.md](PRIVACY.md)（符合香港 PDPO、歐盟 GDPR 及 ISO/IEC 27701 精神，完全無伺服器紀錄，零收集個人身分資料）。
 * **法規合規與法律免責聲明**：詳見 [COMPLIANCE.md](COMPLIANCE.md)（明確界定 EU AI Act 豁免範疇、演算法透明性、ISO/IEC 27001 資安基線及公共交通安全民事免責條款）。
 
@@ -152,6 +152,6 @@ RailPeace/
 
 ## 📄 開源授權 (License)
 
-本專案基於 [MIT License](https://www.google.com/search?q=LICENSE&utm_source=gemini) 條款開源發布。
+本專案基於 [MIT License](https://github.com/jackylawck/RailPeace/blob/main/LICENSE?utm_source=gemini) 條款開源發布。
 
 
