@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-HK" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
+  
+  <!-- 🔍 Google 站長驗證 (Google Search Console) -->
+  <meta name="google-site-verification" content="JZ5UohX-CcP_fQV0_DI9VadkKY4ZoTTkUifL88-fIcY">
+
+  <!-- 🔍 基礎 SEO 核心標籤 -->
+  <title id="doc-title">RailPeace 鐵和平 | 香港地鐵通勤低摩擦借過心法卡</title>
+  <meta name="description" content="RailPeace 鐵和平是一款為香港地鐵通勤者量身打造的公民科技微心法卡。提供無衝突借過話術、門口乘客同理應對、安全退出防線與離線支援，致力於化解車廂推撞焦慮。">
+  <meta name="keywords" content="RailPeace, 鐵和平, 港鐵, 地鐵借過, 車廂衝突, 門神現象, 調解心理學, 公民科技, Civic Tech, PWA, 離線心法">
+  <meta name="author" content="RailPeace Open Source Initiative">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://kylawck.github.io/rail-peace/">
+
+  <!-- 🌐 Open Graph / Facebook / LinkedIn 社交預覽卡片 -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kylawck.github.io/rail-peace/">
+  <meta property="og:title" content="RailPeace 鐵和平 | 香港地鐵通勤低摩擦借過心法卡">
+  <meta property="og:description" content="搭車遇到車廂人貼人？一張專為通勤者設計的低摩擦借過心法卡，安全第一，唔爭一時。">
+  <meta property="og:image" content="https://kylawck.github.io/rail-peace/RailPeace512icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="RailPeace 鐵和平 App 圖標">
+  <meta property="og:locale" content="zh_HK">
+  <meta property="og:site_name" content="RailPeace 鐵和平">
+
+  <!-- 🐦 Twitter Cards -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="RailPeace 鐵和平 | 通勤低摩擦借過心法">
+  <meta name="twitter:description" content="搭車遇到車門推撞？專為香港地鐵設計的低摩擦借過心法卡，安全第一，唔爭一時。">
+  <meta name="twitter:image" content="https://kylawck.github.io/rail-peace/RailPeace512icon.png">
+
+  <!-- 📱 方便使用者加入手機畫面 (iOS Safari & Android PWA 沉浸式體驗) -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="鐵和平">
+  <meta name="application-name" content="RailPeace 鐵和平">
+  <meta name="theme-color" content="#f1f5f9">
+  
+  <!-- iOS 桌面圖示宣告 -->
+  <link rel="apple-touch-icon" href="RailPeace192icon.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="RailPeace192icon.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="RailPeace512icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="RailPeace192icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="RailPeace512icon.png">
+
+  <!-- 🛡️ 企業級資安策略：嚴格 CSP 內容安全與 Permissions-Policy 權限隔離 -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self';
+    img-src 'self' data: https://kylawck.github.io;
+    font-src 'self';
+    connect-src 'self';
+    media-src 'none';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'none';
+  ">
+  <meta http-equiv="Permissions-Policy" content="accelerometer=(), gyroscope=(), microphone=(), camera=(), geolocation=(), payment=(), usb=()">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main class="card-container" id="app-card" role="region" aria-labelledby="brand-title">
+  <!-- 頂部 Header 與雙語切換 -->
+  <header class="card-header">
+    <div class="brand" id="brand-title">RailPeace 鐵和平</div>
+    <div class="lang-selector" role="group" aria-label="Language Toggle">
+      <button class="lang-btn active" id="btn-lang-zh" data-lang="zh-HK" type="button">繁中</button>
+      <button class="lang-btn" id="btn-lang-en" data-lang="en" type="button">EN</button>
+    </div>
+  </header>
+
+  <!-- 核心區塊 1：想借過 -->
+  <section class="script-block" aria-labelledby="tag-alight">
+    <div class="role-tag" id="tag-alight"></div>
+    <div class="script-quote" id="text-alight"></div>
+    <div class="script-sub" id="sub-alight"></div>
+  </section>
+
+  <!-- 核心區塊 2：企門口 -->
+  <section class="script-block" aria-labelledby="tag-door">
+    <div class="role-tag" id="tag-door"></div>
+    <div class="script-quote" id="text-door"></div>
+    <div class="script-sub" id="sub-door"></div>
+  </section>
+
+  <!-- 核心區塊 3：安全退路 -->
+  <section class="exit-block" aria-labelledby="title-exit">
+    <div class="exit-title" id="title-exit"></div>
+    <div class="exit-content" id="desc-exit"></div>
+  </section>
+
+  <!-- 操作列 -->
+  <div class="action-bar">
+    <button class="btn-action primary" id="btn-share" type="button"></button>
+    <button class="btn-action secondary" id="btn-copy" type="button"></button>
+  </div>
+
+  <!-- 輕量反饋入口 (動態適配 Repo 網址，無死鏈) -->
+  <div class="feedback-box">
+    <a href="#" class="feedback-link" id="link-feedback" target="_blank" rel="noopener noreferrer"></a>
+  </div>
+
+  <!-- 狀態提示條 (Toast) -->
+  <div class="toast" id="app-toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- 底部備註 -->
+  <footer class="card-footer">
+    <div class="footer-note" id="text-footer-note"></div>
+    <div class="footer-legal" id="text-footer-legal"></div>
+  </footer>
+</main>
+
+<script type="module" src="js/app.js"></script>
+<script>
+  // 嚴格註冊離線快取 Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
