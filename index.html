@@ -8,7 +8,7 @@
   <meta name="google-site-verification" content="JZ5UohX-CcP_fQV0_DI9VadkKY4ZoTTkUifL88-fIcY">
 
   <!-- 🔍 基礎 SEO 核心標籤 -->
-  <title id="doc-title">RailPeace 鐵和平 | 香港地鐵通勤低摩擦借過心法卡</title>
+  <title id="doc-title">RailPeace 鐵和平 | 香港地鐵通勤低摩擦心法卡</title>
   <meta name="description" content="RailPeace 鐵和平是一款為香港地鐵通勤者量身打造的公民科技微心法卡。提供無衝突借過話術、門口乘客同理應對、安全退出防線與離線支援，致力於化解車廂推撞焦慮。">
   <meta name="keywords" content="RailPeace, 鐵和平, 港鐵, 地鐵借過, 車廂衝突, 門神現象, 調解心理學, 公民科技, Civic Tech, PWA, 離線心法">
   <meta name="author" content="jackylawck">
@@ -18,7 +18,7 @@
   <!-- 🌐 Open Graph / Facebook / WhatsApp 社交預覽卡片 -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jackylawck.github.io/RailPeace/">
-  <meta property="og:title" content="RailPeace 鐵和平 | 香港地鐵通勤低摩擦借過心法卡">
+  <meta property="og:title" content="RailPeace 鐵和平 | 香港地鐵通勤低摩擦心法卡">
   <meta property="og:description" content="搭車遇到車廂人貼人？一張專為通勤者設計的低摩擦借過心法卡，安全第一，唔爭一時。">
   <meta property="og:image" content="https://jackylawck.github.io/RailPeace/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -78,21 +78,13 @@
     </div>
   </header>
 
-  <!-- 核心區塊 1：想借過 -->
-  <section class="script-block" aria-labelledby="tag-alight">
-    <div class="role-tag" id="tag-alight"></div>
-    <div class="script-quote" id="text-alight"></div>
-    <div class="script-sub" id="sub-alight"></div>
-  </section>
+  <!-- 核心掛載點：動態場景容器 (由 scenarios.js 動態注入) -->
+  <div id="scenarios-container" class="scenarios-list"></div>
 
-  <!-- 核心區塊 2：企門口 -->
-  <section class="script-block" aria-labelledby="tag-door">
-    <div class="role-tag" id="tag-door"></div>
-    <div class="script-quote" id="text-door"></div>
-    <div class="script-sub" id="sub-door"></div>
-  </section>
+  <!-- 展開/收起更多場景按鈕 -->
+  <button id="btn-toggle-scenarios" class="btn-toggle" type="button"></button>
 
-  <!-- 核心區塊 3：安全退路 -->
+  <!-- 安全退路 -->
   <section class="exit-block" aria-labelledby="title-exit">
     <div class="exit-title" id="title-exit"></div>
     <div class="exit-content" id="desc-exit"></div>
@@ -104,7 +96,7 @@
     <button class="btn-action secondary" id="btn-copy" type="button"></button>
   </div>
 
-  <!-- 反饋入口 (直連你的 GitHub Issues，零死鏈) -->
+  <!-- 反饋入口 (直連 GitHub Issues) -->
   <div class="feedback-box">
     <a href="https://github.com/jackylawck/RailPeace/issues/new" class="feedback-link" id="link-feedback" target="_blank" rel="noopener noreferrer"></a>
   </div>
