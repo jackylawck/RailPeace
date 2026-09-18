@@ -69,6 +69,14 @@ The Hong Kong MTR is one of the most efficient yet densely packed transit networ
 
 ---
 
+## 🛡️ 合規與資料治理 (Governance & Compliance)
+
+本專案遵循全球合規治理與透明度標準，詳細條款請參閱獨立聲明文件：
+* **私隱政策與零資料收集聲明**：詳見 [PRIVACY.md](PRIVACY.md)（符合香港 PDPO、歐盟 GDPR 及 ISO/IEC 27701 精神，完全無伺服器紀錄，零收集個人身分資料）。
+* **法規合規與法律免責聲明**：詳見 [COMPLIANCE.md](COMPLIANCE.md)（明確界定 EU AI Act 豁免範疇、演算法透明性、ISO/IEC 27001 資安基線及公共交通安全民事免責條款）。
+
+---
+
 ## 🛠️ 本地開發與自動化測試 (Development & Testing)
 
 本專案無需任何繁雜的 Bundler（如 Webpack/Vite），完全依賴 Node.js 原生測試器與輕量靜態檢查。
@@ -111,7 +119,7 @@ npm run lint
 RailPeace/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml             # GitHub Actions CI 管線
+│       └── ci.yml             # GitHub Actions CI 自動化管線
 ├── css/
 │   └── style.css              # 響應式、深色模式調和與 a11y 樣式
 ├── js/
@@ -125,7 +133,9 @@ RailPeace/
 ├── index.html                 # 語意化 HTML5、嚴格 CSP 安全防禦設定
 ├── manifest.json              # Web App Manifest
 ├── sw.js                      # 離線 PWA Service Worker
-└── package.json               # 專案規範與測試腳本定義
+├── package.json               # 專案規範與測試腳本定義
+├── PRIVACY.md                 # 隱私政策與零資料收集聲明
+└── COMPLIANCE.md              # 法規合規與法律免責聲明
 
 ```
 
@@ -135,12 +145,13 @@ RailPeace/
 
 歡迎提交 Pull Request 或開立 Issue 分享你在車廂中的實戰體驗！
 
-* 新增或修訂話術時，請確保符合 **調解雙贏原則** 
+* 新增或修訂話術時，請確保符合 **調解雙贏原則** 與 **15 字低認知負荷上限**。
 * 任何代碼提交前，請確保本地執行 `npm test` 與 `npm run lint` 均為綠燈通過。
 
 ---
 
 ## 📄 開源授權 (License)
 
-本專案基於 [MIT License]([https://www.google.com/search?q=LICENSE&utm_source=gemini](https://github.com/jackylawck/RailPeace/blob/main/LICENSE)) 條款開源發布。
+本專案基於 [MIT License](https://www.google.com/search?q=LICENSE&utm_source=gemini) 條款開源發布。
+
 
