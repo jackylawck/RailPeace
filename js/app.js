@@ -1,8 +1,10 @@
 import { I18N } from "./i18n.js";
+import { SCENARIOS } from "./scenarios.js";
 
 class RailPeaceApp {
   constructor() {
     this.currentLang = this.getInitialLanguage();
+    this.isExpanded = false;
     this.initElements();
     this.bindEvents();
     this.setupFeedbackLink();
@@ -16,9 +18,7 @@ class RailPeaceApp {
     } catch {}
 
     const sysLang = (navigator.language || "").toLowerCase();
-    if (sysLang.startsWith("en")) {
-      return "en";
-    }
+    if (sysLang.startsWith("en")) return "en";
     return "zh-HK";
   }
 
@@ -27,12 +27,8 @@ class RailPeaceApp {
     this.brandTitle = document.getElementById("brand-title");
     this.btnZh = document.getElementById("btn-lang-zh");
     this.btnEn = document.getElementById("btn-lang-en");
-    this.tagAlight = document.getElementById("tag-alight");
-    this.textAlight = document.getElementById("text-alight");
-    this.subAlight = document.getElementById("sub-alight");
-    this.tagDoor = document.getElementById("tag-door");
-    this.textDoor = document.getElementById("text-door");
-    this.subDoor = document.getElementById("sub-door");
+    this.scenariosContainer = document.getElementById("scenarios-container");
+    this.btnToggle = document.getElementById("btn-toggle-scenarios");
     this.titleExit = document.getElementById("title-exit");
     this.descExit = document.getElementById("desc-exit");
     this.btnShare = document.getElementById("btn-share");
@@ -46,6 +42,7 @@ class RailPeaceApp {
   bindEvents() {
     this.btnZh.addEventListener("click", () => this.switchLanguage("zh-HK"));
     this.btnEn.addEventListener("click", () => this.switchLanguage("en"));
+    this.btnToggle.addEventListener("click", () => this.toggleScenarios());
     this.btnShare.addEventListener("click", () => this.handleShare());
     this.btnCopy.addEventListener("click", () => this.executeCopy());
   }
@@ -64,6 +61,59 @@ class RailPeaceApp {
     this.render();
   }
 
+  toggleScenarios() {
+    this.isExpanded = !this.isExpanded;
+    this.renderScenarios();
+    this.updateToggleButtonText();
+  }
+
+  updateToggleButtonText() {
+    const d = I18N[this.currentLang];
+    this.btnToggle.textContent = this.isExpanded ? d.btnCollapse : d.btnExpand;
+  }
+
+  renderScenarios() {
+    this.scenariosContainer.textContent = "";
+    const list = SCENARIOS[this.currentLang] || [];
+    
+    // 調解員標準：未展開前只顯示 Top 3 核心場景
+    const visibleScenarios = this.isExpanded 
+      ? list 
+      : list.filter(item => item.priority <= 3);
+
+    visibleScenarios.forEach(item => {
+      const section = document.createElement("section");
+      section.className = "script-block";
+
+      const header = document.createElement("div");
+      header.className = "script-header";
+
+      const tag = document.createElement("div");
+      tag.className = "role-tag";
+      tag.textContent = item.tag;
+
+      const riskBadge = document.createElement("span");
+      riskBadge.className = `risk-badge risk-${item.riskLevel.toLowerCase()}`;
+      riskBadge.textContent = item.riskLevel === "HIGH" ? "高風險" : (item.riskLevel === "MEDIUM" ? "中風險" : "常用");
+
+      header.appendChild(tag);
+      header.appendChild(riskBadge);
+
+      const quote = document.createElement("div");
+      quote.className = "script-quote";
+      quote.textContent = item.script;
+
+      const silent = document.createElement("div");
+      silent.className = "script-silent";
+      silent.textContent = item.silentOption;
+
+      section.appendChild(header);
+      section.appendChild(quote);
+      section.appendChild(silent);
+      this.scenariosContainer.appendChild(section);
+    });
+  }
+
   render() {
     const d = I18N[this.currentLang];
     
@@ -77,16 +127,11 @@ class RailPeaceApp {
     this.btnEn.classList.toggle("active", !isZh);
     this.btnEn.setAttribute("aria-pressed", !isZh ? "true" : "false");
 
-    this.tagAlight.textContent = d.tagAlight;
-    this.textAlight.textContent = d.textAlight;
-    this.subAlight.textContent = d.subAlight;
-
-    this.tagDoor.textContent = d.tagDoor;
-    this.textDoor.textContent = d.textDoor;
-    this.subDoor.textContent = d.subDoor;
+    this.renderScenarios();
+    this.updateToggleButtonText();
 
     this.titleExit.textContent = d.titleExit;
-    this.descExit.textContent = d.descExit;
+    this.descExit.innerHTML = d.descExit;
 
     this.btnShare.textContent = d.btnShare;
     this.btnCopy.textContent = d.btnCopy;
@@ -123,9 +168,7 @@ class RailPeaceApp {
       try {
         await navigator.share(shareData);
       } catch (err) {
-        if (err.name !== "AbortError") {
-          this.executeCopy();
-        }
+        if (err.name !== "AbortError") this.executeCopy();
       }
     } else {
       this.executeCopy();
@@ -152,10 +195,8 @@ class RailPeaceApp {
       document.body.appendChild(textarea);
       textarea.focus();
       textarea.select();
-      
       const successful = document.execCommand("copy");
       document.body.removeChild(textarea);
-
       if (successful) {
         this.showToast(d.toastCopySuccess);
         return;
