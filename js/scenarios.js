@@ -1,9 +1,5 @@
 /**
- * 車廂雙贏心法庫
- * 原則：
- * 1. 保留「唔好意思」禮貌卸力，融入共贏同理心元素
- * 2. Top 3 聚焦日常核心：門口塞住、入走廊、人貼人碰撞
- * 3. 攻擊性情境移至擴展區，提供零開口防衛指引
+ * 車廂雙贏微心法庫
  */
 export const SCENARIOS = Object.freeze({
   "zh-HK": [
@@ -15,7 +11,7 @@ export const SCENARIOS = Object.freeze({
       tag: "想上車但門口塞住（入面有位）？",
       primaryScript: "「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」",
       fallbackScript: "「唔好意思借借，等我行入中間位，唔塞住門口。」",
-      silentOption: "🤐 手指指向內部走廊空位 + 順向側身主動帶頭移入",
+      silentOption: "🤐 眼神望向走廊 + 掌心向上微示意 + 側身順向帶頭移入",
       maxAttempts: 2,
       exitRule: "關門提示響起且人群完全不動時，切勿硬推，退後等下一班車免被夾傷。",
       abortConditions: ["車廂內部已完全擠死無任何空間"]
@@ -28,7 +24,7 @@ export const SCENARIOS = Object.freeze({
       tag: "已上車想入走廊？",
       primaryScript: "「唔好意思借借，等我入中間企，唔塞住你個位，唔該。」",
       fallbackScript: "「借借，我行入中間幫手騰番個位，唔該晒。」",
-      silentOption: "🤐 眼神示意內部走廊空位 + 側身順向微移",
+      silentOption: "🤐 視線望向車廂內部空隙 + 側身順向微移",
       maxAttempts: 2,
       exitRule: "門口若完全擠死，切勿強推，等候下一班車確保人身安全。",
       abortConditions: ["走廊已完全站滿無法再移入"]
@@ -52,7 +48,7 @@ export const SCENARIOS = Object.freeze({
       riskLevel: "HIGH",
       defaultAction: "SILENT",
       tag: "對方有攻擊性／挑釁？",
-      primaryScript: null, // 專業紅線：嚴禁開口
+      primaryScript: null,
       fallbackScript: null,
       silentOption: "🤐 移開視線 · 安靜退後一步 · 側身避開對峙",
       maxAttempts: 0,
@@ -124,8 +120,8 @@ export const SCENARIOS = Object.freeze({
       defaultAction: "SPEAK",
       tag: "Door Blocked but Aisle Empty?",
       primaryScript: "\"Excuse me, space inside—moving in lets folks behind board, thanks!\"",
-      fallbackScript: "\"Pardon me, heading inside so we don't jam the doorway.\"",
-      silentOption: "🤐 Gesture to open aisle + calmly lead way inward",
+      fallbackScript: "\"Pardon me, heading inside so we don't jam doorway.\"",
+      silentOption: "🤐 Look toward aisle + open-palm motion + calmly lead inward",
       maxAttempts: 2,
       exitRule: "If door chimes ring and crowd is frozen, step back to avoid door traps.",
       abortConditions: ["Train carriage completely jammed with zero standing room"]
