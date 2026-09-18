@@ -1,0 +1,24 @@
+{
+  "name": "RailPeace 鐵和平",
+  "short_name": "鐵和平",
+  "description": "香港地鐵車廂低摩擦借過心法卡",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f1f5f9",
+  "theme_color": "#f1f5f9",
+  "icons": [
+    {
+      "src": "./RailPeace192icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./RailPeace512icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
