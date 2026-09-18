@@ -36,7 +36,7 @@
     --toast-bg: #1e293b;
     --toast-text: #f8fafc;
 
-    /* 風險標籤（深色模式專屬調和，拒絕刺眼高光） */
+    /* 風險標籤（深色模式專屬調和） */
     --risk-low-bg: #0c4a6e;
     --risk-low-text: #7dd3fc;
     --risk-med-bg: #78350f;
@@ -64,7 +64,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* 寬度擴展至 420px，完美適配 iPhone Pro Max 與現代 Android 大螢幕 */
 .card-container {
   background: var(--bg-card);
   max-width: 420px;
@@ -123,7 +122,6 @@ body {
   gap: 12px;
 }
 
-/* 展開淡入微動畫 */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
@@ -132,7 +130,7 @@ body {
 .script-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   animation: fadeIn 0.25s ease;
 }
 
@@ -146,6 +144,21 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.meta-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.attempt-badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: rgba(100, 116, 139, 0.1);
+  padding: 1px 5px;
+  border-radius: 4px;
 }
 
 .role-tag {
@@ -165,7 +178,6 @@ body {
 .risk-medium { background: var(--risk-med-bg); color: var(--risk-med-text); }
 .risk-high { background: var(--risk-high-bg); color: var(--risk-high-text); }
 
-/* 字體調整為 1rem，搭配平衡換行 */
 .script-quote {
   font-size: 1rem;
   font-weight: 800;
@@ -177,28 +189,23 @@ body {
   border-radius: 4px 8px 8px 4px;
 }
 
-/* 動作與心法拆行排版 */
-.script-sub {
-  font-size: 0.72rem;
-  color: var(--text-sub);
-  line-height: 1.45;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-left: 2px;
-}
-
 .script-silent {
   font-size: 0.74rem;
   color: var(--text-sub);
   background: rgba(100, 116, 139, 0.06);
   padding: 6px 10px;
   border-radius: 6px;
-  margin-top: 2px;
   line-height: 1.35;
 }
 
-/* 展開按鈕 */
+.script-exit-rule {
+  font-size: 0.72rem;
+  color: var(--text-sub);
+  line-height: 1.4;
+  padding-left: 2px;
+  opacity: 0.9;
+}
+
 .btn-toggle {
   background: transparent;
   border: 1px dashed var(--border);
@@ -272,7 +279,6 @@ body {
   background: rgba(100, 116, 139, 0.16);
 }
 
-/* ♿ 無障礙鍵盤焦點外框 */
 .btn-action:focus-visible,
 .lang-btn:focus-visible,
 .btn-toggle:focus-visible,
@@ -295,12 +301,12 @@ body {
   text-decoration: underline;
 }
 
-/* Toast 防爆版與窄屏居中 */
+/* Toast：已移除 animation 屬性，交由 WAAPI 控制 */
 .toast {
   position: absolute;
   bottom: 60px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, 0);
   background: var(--toast-bg);
   color: var(--toast-text);
   padding: 8px 16px;
@@ -309,27 +315,16 @@ body {
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   pointer-events: none;
-  animation: fadeInOut 2.2s forwards;
   white-space: normal;
   max-width: calc(100% - 48px);
   text-align: center;
   line-height: 1.4;
   z-index: 10;
+  opacity: 0;
 }
 
-@keyframes fadeInOut {
-  0% { opacity: 0; transform: translate(-50%, 8px); }
-  15% { opacity: 1; transform: translate(-50%, 0); }
-  85% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, -8px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .toast {
-    animation: none;
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+.toast.fallback-show {
+  opacity: 1;
 }
 
 .card-footer {
