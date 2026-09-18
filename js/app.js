@@ -1,25 +1,37 @@
 import { I18N } from "./i18n.js";
 import { SCENARIOS } from "./scenarios.js";
+import { getInitialLanguage } from "./language.js";
+import { parseStrongTokens } from "./dom-utils.js";
 
-class RailPeaceApp {
+function renderWithStrong(container, rawText) {
+  if (!container) return;
+  const tokens = parseStrongTokens(rawText);
+  const nodes = tokens.map(token => {
+    if (token.type === "strong") {
+      const strong = document.createElement("strong");
+      strong.textContent = token.text || "";
+      return strong;
+    }
+    return document.createTextNode(token.text || "");
+  });
+  container.replaceChildren(...nodes);
+}
+
+export class RailPeaceApp {
   constructor() {
-    this.currentLang = this.getInitialLanguage();
+    this.toastTimer = null;
+    this.toastAnimation = null;
+
+    this.safeStorage = typeof sessionStorage !== "undefined" ? sessionStorage : null;
+    this.safeNavigator = typeof navigator !== "undefined" ? navigator : { languages: [] };
+    this.safeWindow = typeof window !== "undefined" ? window : null;
+
+    this.currentLang = getInitialLanguage(this.safeStorage, this.safeNavigator);
     this.isExpanded = false;
     this.initElements();
     this.bindEvents();
     this.setupFeedbackLink();
     this.render();
-  }
-
-  getInitialLanguage() {
-    try {
-      const saved = sessionStorage.getItem("railpeace_lang");
-      if (saved === "en" || saved === "zh-HK") return saved;
-    } catch {}
-
-    const sysLang = (navigator.language || "").toLowerCase();
-    if (sysLang.startsWith("en")) return "en";
-    return "zh-HK";
   }
 
   initElements() {
@@ -40,7 +52,6 @@ class RailPeaceApp {
   }
 
   bindEvents() {
-    // 加上可選鏈與存在性檢查，避免 null 崩潰
     if (this.btnZh) this.btnZh.addEventListener("click", () => this.switchLanguage("zh-HK"));
     if (this.btnEn) this.btnEn.addEventListener("click", () => this.switchLanguage("en"));
     if (this.btnToggle) this.btnToggle.addEventListener("click", () => this.toggleScenarios());
@@ -57,7 +68,9 @@ class RailPeaceApp {
     if (this.currentLang === lang || !I18N[lang]) return;
     this.currentLang = lang;
     try {
-      sessionStorage.setItem("railpeace_lang", lang);
+      if (this.safeStorage) {
+        this.safeStorage.setItem("railpeace_lang", lang);
+      }
     } catch {}
     this.render();
   }
@@ -70,28 +83,29 @@ class RailPeaceApp {
 
   updateToggleButtonText() {
     if (!this.btnToggle) return;
-    const d = I18N[this.currentLang];
-    this.btnToggle.textContent = this.isExpanded ? d.btnCollapse : d.btnExpand;
+    const d = I18N[this.currentLang] || {};
+    this.btnToggle.textContent = this.isExpanded ? (d.btnCollapse || "") : (d.btnExpand || "");
   }
 
   renderScenarios() {
     if (!this.scenariosContainer) return;
-    this.scenariosContainer.textContent = "";
+    
+    const d = I18N[this.currentLang] || {};
     const list = SCENARIOS[this.currentLang] || [];
-
-    // 調解員標準：未展開前只顯示 Top 3 核心場景
+    
     const visibleScenarios = this.isExpanded 
       ? list 
-      : list.filter(item => item.priority <= 3);
+      : list.filter(item => typeof item.priority === "number" && item.priority <= 3);
 
-    // 空狀態安全防護
     if (visibleScenarios.length === 0) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
-      empty.textContent = this.currentLang === "en" ? "No scenarios available." : "暫無場景資料";
-      this.scenariosContainer.appendChild(empty);
+      empty.textContent = d.emptyState || "";
+      this.scenariosContainer.replaceChildren(empty);
       return;
     }
+
+    const fragment = document.createDocumentFragment();
 
     visibleScenarios.forEach(item => {
       const section = document.createElement("section");
@@ -102,17 +116,19 @@ class RailPeaceApp {
 
       const tag = document.createElement("div");
       tag.className = "role-tag";
-      tag.textContent = item.tag;
+      tag.textContent = item.tag || "";
 
-      // 語意化圖標與雙語支援標籤
+      const riskLevel = typeof item.riskLevel === "string" ? item.riskLevel.toUpperCase() : "LOW";
+      const riskClass = riskLevel.toLowerCase();
       const riskBadge = document.createElement("span");
-      riskBadge.className = `risk-badge risk-${item.riskLevel.toLowerCase()}`;
-      if (item.riskLevel === "HIGH") {
-        riskBadge.textContent = this.currentLang === "en" ? "🔴 High Risk" : "🔴 高風險";
-      } else if (item.riskLevel === "MEDIUM") {
-        riskBadge.textContent = this.currentLang === "en" ? "🟡 Moderate" : "🟡 中風險";
+      riskBadge.className = `risk-badge risk-${riskClass}`;
+
+      if (riskLevel === "HIGH") {
+        riskBadge.textContent = d.riskHigh || "";
+      } else if (riskLevel === "MEDIUM") {
+        riskBadge.textContent = d.riskMedium || "";
       } else {
-        riskBadge.textContent = this.currentLang === "en" ? "🟢 Core" : "🟢 常用";
+        riskBadge.textContent = d.riskLow || "";
       }
 
       header.appendChild(tag);
@@ -120,9 +136,8 @@ class RailPeaceApp {
 
       const quote = document.createElement("div");
       quote.className = "script-quote";
-      quote.textContent = item.script;
+      quote.textContent = item.script || "";
 
-      // 分行排版動作與心理要點，降低資訊過載
       const subContainer = document.createElement("div");
       subContainer.className = "script-sub";
 
@@ -140,22 +155,24 @@ class RailPeaceApp {
 
       const silent = document.createElement("div");
       silent.className = "script-silent";
-      silent.textContent = item.silentOption;
+      silent.textContent = item.silentOption || "";
 
       section.appendChild(header);
       section.appendChild(quote);
       if (subContainer.hasChildNodes()) section.appendChild(subContainer);
       section.appendChild(silent);
-      this.scenariosContainer.appendChild(section);
+      fragment.appendChild(section);
     });
+
+    this.scenariosContainer.replaceChildren(fragment);
   }
 
   render() {
-    const d = I18N[this.currentLang];
+    const d = I18N[this.currentLang] || {};
     
     document.documentElement.lang = this.currentLang;
-    if (this.docTitle) this.docTitle.textContent = d.docTitle;
-    if (this.brandTitle) this.brandTitle.textContent = d.brand;
+    if (this.docTitle) this.docTitle.textContent = d.docTitle || "";
+    if (this.brandTitle) this.brandTitle.textContent = d.brand || "";
 
     const isZh = this.currentLang === "zh-HK";
     if (this.btnZh) {
@@ -170,45 +187,75 @@ class RailPeaceApp {
     this.renderScenarios();
     this.updateToggleButtonText();
 
-    if (this.titleExit) this.titleExit.textContent = d.titleExit;
-    if (this.descExit) this.descExit.innerHTML = d.descExit;
+    if (this.titleExit) this.titleExit.textContent = d.exitTitle || "";
+    renderWithStrong(this.descExit, d.exitText || "");
 
-    if (this.btnShare) this.btnShare.textContent = d.btnShare;
-    if (this.btnCopy) this.btnCopy.textContent = d.btnCopy;
-    if (this.linkFeedback) this.linkFeedback.textContent = d.linkFeedback;
+    if (this.btnShare) this.btnShare.textContent = d.btnShare || "";
+    if (this.btnCopy) this.btnCopy.textContent = d.btnCopy || "";
+    if (this.linkFeedback) this.linkFeedback.textContent = d.linkFeedback || "";
 
-    if (this.footerNote) this.footerNote.textContent = d.footerNote;
-    if (this.footerLegal) this.footerLegal.textContent = d.footerLegal;
+    if (this.footerNote) this.footerNote.textContent = d.footerNote || "";
+    if (this.footerLegal) this.footerLegal.textContent = d.footerLegal || "";
   }
 
   showToast(message) {
     if (!this.toastEl) return;
-    this.toastEl.textContent = message;
+    this.toastEl.textContent = message || "";
     this.toastEl.hidden = false;
 
-    this.toastEl.style.animation = "none";
-    void this.toastEl.offsetWidth;
-    this.toastEl.style.animation = "";
+    if (this.toastAnimation) {
+      this.toastAnimation.cancel();
+      this.toastAnimation = null;
+    }
+
+    const prefersReducedMotion = this.safeWindow && 
+      typeof this.safeWindow.matchMedia === "function" && 
+      this.safeWindow.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!prefersReducedMotion && typeof this.toastEl.animate === "function") {
+      this.toastAnimation = this.toastEl.animate(
+        [
+          { opacity: 0, transform: "translate(-50%, 8px)" },
+          { opacity: 1, transform: "translate(-50%, 0)", offset: 0.15 },
+          { opacity: 1, transform: "translate(-50%, 0)", offset: 0.85 },
+          { opacity: 0, transform: "translate(-50%, -8px)" }
+        ],
+        { duration: 2200, easing: "ease-out" }
+      );
+
+      this.toastAnimation.onfinish = () => {
+        this.toastAnimation = null;
+      };
+      this.toastAnimation.oncancel = () => {
+        this.toastAnimation = null;
+      };
+    } else {
+      this.toastEl.classList.add("fallback-show");
+    }
 
     clearTimeout(this.toastTimer);
     this.toastTimer = setTimeout(() => {
       this.toastEl.hidden = true;
+      this.toastEl.classList.remove("fallback-show");
+      this.toastAnimation = null;
     }, 2200);
   }
 
   async handleShare() {
-    const d = I18N[this.currentLang];
+    const d = I18N[this.currentLang] || {};
+    const currentUrl = this.safeWindow ? this.safeWindow.location.href : "";
     const shareData = {
-      title: d.shareTitle,
-      text: d.shareText,
-      url: window.location.href
+      title: d.shareTitle || "",
+      text: d.shareText || "",
+      url: currentUrl
     };
 
-    if (navigator.share) {
+    if (this.safeNavigator && typeof this.safeNavigator.share === "function") {
       try {
-        await navigator.share(shareData);
+        await this.safeNavigator.share(shareData);
+        this.showToast(d.toastShareSuccess);
       } catch (err) {
-        if (err.name !== "AbortError") this.executeCopy();
+        if (err && err.name !== "AbortError") this.executeCopy();
       }
     } else {
       this.executeCopy();
@@ -216,30 +263,33 @@ class RailPeaceApp {
   }
 
   async executeCopy() {
-    const d = I18N[this.currentLang];
-    const content = `${d.shareText}\n🔗 ${window.location.href}`;
+    const d = I18N[this.currentLang] || {};
+    const currentUrl = this.safeWindow ? this.safeWindow.location.href : "";
+    const content = `${d.shareText || ""}\n🔗 ${currentUrl}`;
 
-    if (navigator.clipboard && window.isSecureContext) {
+    if (this.safeNavigator && this.safeNavigator.clipboard && this.safeWindow && this.safeWindow.isSecureContext) {
       try {
-        await navigator.clipboard.writeText(content);
+        await this.safeNavigator.clipboard.writeText(content);
         this.showToast(d.toastCopySuccess);
         return;
       } catch {}
     }
 
     try {
-      const textarea = document.createElement("textarea");
-      textarea.value = content;
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-      const successful = document.execCommand("copy");
-      document.body.removeChild(textarea);
-      if (successful) {
-        this.showToast(d.toastCopySuccess);
-        return;
+      if (typeof document !== "undefined") {
+        const textarea = document.createElement("textarea");
+        textarea.value = content;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        const successful = document.execCommand("copy");
+        document.body.removeChild(textarea);
+        if (successful) {
+          this.showToast(d.toastCopySuccess);
+          return;
+        }
       }
     } catch {}
 
@@ -247,6 +297,8 @@ class RailPeaceApp {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  new RailPeaceApp();
-});
+if (typeof document !== "undefined") {
+  document.addEventListener("DOMContentLoaded", () => {
+    new RailPeaceApp();
+  });
+}
