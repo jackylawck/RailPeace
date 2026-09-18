@@ -3,7 +3,6 @@
 > **香港鐵路通勤微調解心法卡**  
 > *A Low-Friction Transit Mediation Cheatsheet for Hong Kong Commuters.*
 
-[![CI](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jackylawck/RailPeace/blob/main/LICENSE)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-success.svg)](https://jackylawck.github.io/RailPeace/)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)](#-技術規格與架構-tech-stack)
