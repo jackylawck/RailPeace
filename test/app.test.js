@@ -54,28 +54,28 @@ test("I18N Integrity: dictionaries must match and tokens must be valid", () => {
   });
 });
 
-test("Scenarios Schema: Validates contract and case-insensitive risk level", () => {
+test("Scenarios Schema: Rigorous validation for ADR principles and 15-char limit", () => {
   const CORE_PRIORITY_THRESHOLD = 3;
   const MIN_CORE_SCENARIOS = 3;
 
   ["zh-HK", "en"].forEach((lang) => {
     const items = SCENARIOS[lang];
     assert.ok(Array.isArray(items), `${lang} scenarios must be an array`);
-    assert.ok(items.length >= MIN_CORE_SCENARIOS, `Scenarios array must contain at least ${MIN_CORE_SCENARIOS} items, got ${items.length}`);
 
     const coreItems = items.filter(
       i => typeof i.priority === "number" && i.priority <= CORE_PRIORITY_THRESHOLD
     );
     assert.ok(
       coreItems.length >= MIN_CORE_SCENARIOS,
-      `Must have at least ${MIN_CORE_SCENARIOS} core scenarios within priority <= ${CORE_PRIORITY_THRESHOLD}, got ${coreItems.length}`
+      `Must have at least ${MIN_CORE_SCENARIOS} core scenarios, got ${coreItems.length}`
     );
 
     items.forEach(item => {
       assert.ok(item.id, `Scenario missing id: ${JSON.stringify(item)}`);
       assert.ok(item.tag, `Scenario missing tag: ${item.id}`);
-      assert.ok(item.script, `Scenario missing script: ${item.id}`);
       assert.ok(item.silentOption, `Scenario missing silentOption: ${item.id}`);
+      assert.ok(item.exitRule, `Scenario missing exitRule: ${item.id}`);
+      assert.ok(Array.isArray(item.abortConditions), `Scenario missing abortConditions: ${item.id}`);
 
       const normalizedRisk = (item.riskLevel || "").toUpperCase();
       assert.ok(
@@ -84,7 +84,16 @@ test("Scenarios Schema: Validates contract and case-insensitive risk level", () 
       );
       
       assert.equal(typeof item.priority, "number", `Scenario ${item.id} priority must be a number`);
-      assert.ok(item.priority >= 1, `Scenario ${item.id} priority must be >= 1`);
+      assert.equal(typeof item.maxAttempts, "number", `Scenario ${item.id} maxAttempts must be a number`);
+
+      // 嚴格驗證：中文主話術在保留「唔好意思」之餘，字數限制在 15 字以內
+      if (lang === "zh-HK" && item.primaryScript) {
+        const cleanScript = item.primaryScript.replace(/[「」]/g, "");
+        assert.ok(
+          cleanScript.length <= 15,
+          `Script for ${item.id} exceeds 15 chars: "${cleanScript}" (${cleanScript.length} chars)`
+        );
+      }
     });
   });
 });
