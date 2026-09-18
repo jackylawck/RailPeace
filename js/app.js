@@ -40,11 +40,12 @@ class RailPeaceApp {
   }
 
   bindEvents() {
-    this.btnZh.addEventListener("click", () => this.switchLanguage("zh-HK"));
-    this.btnEn.addEventListener("click", () => this.switchLanguage("en"));
-    this.btnToggle.addEventListener("click", () => this.toggleScenarios());
-    this.btnShare.addEventListener("click", () => this.handleShare());
-    this.btnCopy.addEventListener("click", () => this.executeCopy());
+    // 加上可選鏈與存在性檢查，避免 null 崩潰
+    if (this.btnZh) this.btnZh.addEventListener("click", () => this.switchLanguage("zh-HK"));
+    if (this.btnEn) this.btnEn.addEventListener("click", () => this.switchLanguage("en"));
+    if (this.btnToggle) this.btnToggle.addEventListener("click", () => this.toggleScenarios());
+    if (this.btnShare) this.btnShare.addEventListener("click", () => this.handleShare());
+    if (this.btnCopy) this.btnCopy.addEventListener("click", () => this.executeCopy());
   }
 
   setupFeedbackLink() {
@@ -68,18 +69,29 @@ class RailPeaceApp {
   }
 
   updateToggleButtonText() {
+    if (!this.btnToggle) return;
     const d = I18N[this.currentLang];
     this.btnToggle.textContent = this.isExpanded ? d.btnCollapse : d.btnExpand;
   }
 
   renderScenarios() {
+    if (!this.scenariosContainer) return;
     this.scenariosContainer.textContent = "";
     const list = SCENARIOS[this.currentLang] || [];
-    
+
     // 調解員標準：未展開前只顯示 Top 3 核心場景
     const visibleScenarios = this.isExpanded 
       ? list 
       : list.filter(item => item.priority <= 3);
+
+    // 空狀態安全防護
+    if (visibleScenarios.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = this.currentLang === "en" ? "No scenarios available." : "暫無場景資料";
+      this.scenariosContainer.appendChild(empty);
+      return;
+    }
 
     visibleScenarios.forEach(item => {
       const section = document.createElement("section");
@@ -92,9 +104,16 @@ class RailPeaceApp {
       tag.className = "role-tag";
       tag.textContent = item.tag;
 
+      // 語意化圖標與雙語支援標籤
       const riskBadge = document.createElement("span");
       riskBadge.className = `risk-badge risk-${item.riskLevel.toLowerCase()}`;
-      riskBadge.textContent = item.riskLevel === "HIGH" ? "高風險" : (item.riskLevel === "MEDIUM" ? "中風險" : "常用");
+      if (item.riskLevel === "HIGH") {
+        riskBadge.textContent = this.currentLang === "en" ? "🔴 High Risk" : "🔴 高風險";
+      } else if (item.riskLevel === "MEDIUM") {
+        riskBadge.textContent = this.currentLang === "en" ? "🟡 Moderate" : "🟡 中風險";
+      } else {
+        riskBadge.textContent = this.currentLang === "en" ? "🟢 Core" : "🟢 常用";
+      }
 
       header.appendChild(tag);
       header.appendChild(riskBadge);
@@ -103,12 +122,29 @@ class RailPeaceApp {
       quote.className = "script-quote";
       quote.textContent = item.script;
 
+      // 分行排版動作與心理要點，降低資訊過載
+      const subContainer = document.createElement("div");
+      subContainer.className = "script-sub";
+
+      if (item.nonVerbal) {
+        const actionLine = document.createElement("span");
+        actionLine.textContent = `👁️ ${item.nonVerbal}`;
+        subContainer.appendChild(actionLine);
+      }
+
+      if (item.note) {
+        const noteLine = document.createElement("span");
+        noteLine.textContent = `💡 ${item.note}`;
+        subContainer.appendChild(noteLine);
+      }
+
       const silent = document.createElement("div");
       silent.className = "script-silent";
       silent.textContent = item.silentOption;
 
       section.appendChild(header);
       section.appendChild(quote);
+      if (subContainer.hasChildNodes()) section.appendChild(subContainer);
       section.appendChild(silent);
       this.scenariosContainer.appendChild(section);
     });
@@ -118,27 +154,31 @@ class RailPeaceApp {
     const d = I18N[this.currentLang];
     
     document.documentElement.lang = this.currentLang;
-    this.docTitle.textContent = d.docTitle;
-    this.brandTitle.textContent = d.brand;
+    if (this.docTitle) this.docTitle.textContent = d.docTitle;
+    if (this.brandTitle) this.brandTitle.textContent = d.brand;
 
     const isZh = this.currentLang === "zh-HK";
-    this.btnZh.classList.toggle("active", isZh);
-    this.btnZh.setAttribute("aria-pressed", isZh ? "true" : "false");
-    this.btnEn.classList.toggle("active", !isZh);
-    this.btnEn.setAttribute("aria-pressed", !isZh ? "true" : "false");
+    if (this.btnZh) {
+      this.btnZh.classList.toggle("active", isZh);
+      this.btnZh.setAttribute("aria-pressed", isZh ? "true" : "false");
+    }
+    if (this.btnEn) {
+      this.btnEn.classList.toggle("active", !isZh);
+      this.btnEn.setAttribute("aria-pressed", !isZh ? "true" : "false");
+    }
 
     this.renderScenarios();
     this.updateToggleButtonText();
 
-    this.titleExit.textContent = d.titleExit;
-    this.descExit.innerHTML = d.descExit;
+    if (this.titleExit) this.titleExit.textContent = d.titleExit;
+    if (this.descExit) this.descExit.innerHTML = d.descExit;
 
-    this.btnShare.textContent = d.btnShare;
-    this.btnCopy.textContent = d.btnCopy;
-    this.linkFeedback.textContent = d.linkFeedback;
+    if (this.btnShare) this.btnShare.textContent = d.btnShare;
+    if (this.btnCopy) this.btnCopy.textContent = d.btnCopy;
+    if (this.linkFeedback) this.linkFeedback.textContent = d.linkFeedback;
 
-    this.footerNote.textContent = d.footerNote;
-    this.footerLegal.textContent = d.footerLegal;
+    if (this.footerNote) this.footerNote.textContent = d.footerNote;
+    if (this.footerLegal) this.footerLegal.textContent = d.footerLegal;
   }
 
   showToast(message) {
