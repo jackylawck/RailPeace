@@ -93,6 +93,7 @@ export class RailPeaceApp {
     const d = I18N[this.currentLang] || {};
     const list = SCENARIOS[this.currentLang] || [];
     
+    // 首頁展示 priority <= 3 之核心情境（涵蓋 hostile、alight、door-jam、board）
     const visibleScenarios = this.isExpanded 
       ? list 
       : list.filter(item => typeof item.priority === "number" && item.priority <= 3);
@@ -109,7 +110,7 @@ export class RailPeaceApp {
 
     visibleScenarios.forEach(item => {
       const section = document.createElement("section");
-      section.className = "script-block";
+      section.className = `script-block scenario-${item.id}`;
 
       const header = document.createElement("div");
       header.className = "script-header";
@@ -118,49 +119,58 @@ export class RailPeaceApp {
       tag.className = "role-tag";
       tag.textContent = item.tag || "";
 
-      const riskLevel = typeof item.riskLevel === "string" ? item.riskLevel.toUpperCase() : "LOW";
-      const riskClass = riskLevel.toLowerCase();
+      const metaGroup = document.createElement("div");
+      metaGroup.className = "meta-group";
+
+      if (typeof item.maxAttempts === "number") {
+        const attemptBadge = document.createElement("span");
+        attemptBadge.className = "attempt-badge";
+        attemptBadge.textContent = item.maxAttempts === 0 
+          ? (this.currentLang === "en" ? "Do Not Speak" : "禁開口")
+          : (this.currentLang === "en" ? `Max ${item.maxAttempts}x` : `最多講${item.maxAttempts}次`);
+        metaGroup.appendChild(attemptBadge);
+      }
+
+      const rawRisk = typeof item.riskLevel === "string" ? item.riskLevel.toUpperCase() : "LOW";
+      const riskClass = rawRisk.toLowerCase();
       const riskBadge = document.createElement("span");
       riskBadge.className = `risk-badge risk-${riskClass}`;
 
-      if (riskLevel === "HIGH") {
+      if (rawRisk === "HIGH") {
         riskBadge.textContent = d.riskHigh || "";
-      } else if (riskLevel === "MEDIUM") {
+      } else if (rawRisk === "MEDIUM") {
         riskBadge.textContent = d.riskMedium || "";
       } else {
         riskBadge.textContent = d.riskLow || "";
       }
+      metaGroup.appendChild(riskBadge);
 
       header.appendChild(tag);
-      header.appendChild(riskBadge);
+      header.appendChild(metaGroup);
+      section.appendChild(header);
 
-      const quote = document.createElement("div");
-      quote.className = "script-quote";
-      quote.textContent = item.script || "";
-
-      const subContainer = document.createElement("div");
-      subContainer.className = "script-sub";
-
-      if (item.nonVerbal) {
-        const actionLine = document.createElement("span");
-        actionLine.textContent = `👁️ ${item.nonVerbal}`;
-        subContainer.appendChild(actionLine);
+      // 主要話術（若為 null 如 hostile 則不渲染）
+      if (item.primaryScript) {
+        const quote = document.createElement("div");
+        quote.className = "script-quote";
+        quote.textContent = item.primaryScript;
+        section.appendChild(quote);
       }
 
-      if (item.note) {
-        const noteLine = document.createElement("span");
-        noteLine.textContent = `💡 ${item.note}`;
-        subContainer.appendChild(noteLine);
-      }
-
+      // 非語言動作
       const silent = document.createElement("div");
       silent.className = "script-silent";
       silent.textContent = item.silentOption || "";
-
-      section.appendChild(header);
-      section.appendChild(quote);
-      if (subContainer.hasChildNodes()) section.appendChild(subContainer);
       section.appendChild(silent);
+
+      // 退路指引
+      if (item.exitRule) {
+        const exitNote = document.createElement("div");
+        exitNote.className = "script-exit-rule";
+        exitNote.textContent = `🛡️ 退路：${item.exitRule}`;
+        section.appendChild(exitNote);
+      }
+
       fragment.appendChild(section);
     });
 
