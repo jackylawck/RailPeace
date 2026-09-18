@@ -48,7 +48,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="./RailPeace192icon.png">
   <link rel="icon" type="image/png" sizes="512x512" href="./RailPeace512icon.png">
 
-  <!-- 🛡️ 企業級安全策略：嚴格 CSP 內容安全與 Permissions-Policy 權限隔離 -->
+  <!-- 🛡️ 企業級安全策略 -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
     script-src 'self' 'unsafe-inline';
@@ -73,16 +73,16 @@
   <header class="card-header">
     <div class="brand" id="brand-title">RailPeace 鐵和平</div>
     <div class="lang-selector" role="group" aria-label="Language Toggle">
-      <button class="lang-btn active" id="btn-lang-zh" data-lang="zh-HK" type="button">繁中</button>
-      <button class="lang-btn" id="btn-lang-en" data-lang="en" type="button">EN</button>
+      <button class="lang-btn active" id="btn-lang-zh" data-lang="zh-HK" type="button" aria-pressed="true">繁中</button>
+      <button class="lang-btn" id="btn-lang-en" data-lang="en" type="button" aria-pressed="false">EN</button>
     </div>
   </header>
 
   <!-- 核心掛載點：動態場景容器 (由 scenarios.js 動態注入) -->
   <div id="scenarios-container" class="scenarios-list"></div>
 
-  <!-- 展開/收起更多場景按鈕 -->
-  <button id="btn-toggle-scenarios" class="btn-toggle" type="button"></button>
+  <!-- 展開/收起更多場景按鈕 (補齊 aria-expanded) -->
+  <button id="btn-toggle-scenarios" class="btn-toggle" type="button" aria-expanded="false"></button>
 
   <!-- 安全退路 -->
   <section class="exit-block" aria-labelledby="title-exit">
