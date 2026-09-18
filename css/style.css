@@ -11,6 +11,14 @@
   --exit-text: #991b1b;
   --toast-bg: #0f172a;
   --toast-text: #ffffff;
+  
+  /* 風險標籤（淺色模式） */
+  --risk-low-bg: #e0f2fe;
+  --risk-low-text: #0369a1;
+  --risk-med-bg: #fef3c7;
+  --risk-med-text: #b45309;
+  --risk-high-bg: #fee2e2;
+  --risk-high-text: #b91c1c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +35,14 @@
     --exit-text: #fca5a5;
     --toast-bg: #1e293b;
     --toast-text: #f8fafc;
+
+    /* 風險標籤（深色模式專屬調和，拒絕刺眼高光） */
+    --risk-low-bg: #0c4a6e;
+    --risk-low-text: #7dd3fc;
+    --risk-med-bg: #78350f;
+    --risk-med-text: #fcd34d;
+    --risk-high-bg: #7f1d1d;
+    --risk-high-text: #fca5a5;
   }
 }
 
@@ -48,9 +64,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* 寬度擴展至 420px，完美適配 iPhone Pro Max 與現代 Android 大螢幕 */
 .card-container {
   background: var(--bg-card);
-  max-width: 380px;
+  max-width: 420px;
   width: 100%;
   border-radius: 20px;
   border: 1px solid var(--border);
@@ -58,7 +75,7 @@ body {
   box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   position: relative;
 }
 
@@ -100,10 +117,35 @@ body {
   color: #ffffff;
 }
 
+.scenarios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 展開淡入微動畫 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .script-block {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  animation: fadeIn 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .script-block {
+    animation: none;
+  }
+}
+
+.script-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .role-tag {
@@ -112,21 +154,64 @@ body {
   color: var(--accent);
 }
 
+.risk-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
+}
+.risk-low { background: var(--risk-low-bg); color: var(--risk-low-text); }
+.risk-medium { background: var(--risk-med-bg); color: var(--risk-med-text); }
+.risk-high { background: var(--risk-high-bg); color: var(--risk-high-text); }
+
+/* 字體調整為 1rem，搭配平衡換行 */
 .script-quote {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 800;
-  line-height: 1.45;
+  line-height: 1.5;
+  text-wrap: balance;
   background: rgba(37, 99, 235, 0.04);
-  padding: 10px 12px;
+  padding: 9px 12px;
   border-left: 4px solid var(--accent);
   border-radius: 4px 8px 8px 4px;
 }
 
+/* 動作與心法拆行排版 */
 .script-sub {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-sub);
+  line-height: 1.45;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
   padding-left: 2px;
-  line-height: 1.4;
+}
+
+.script-silent {
+  font-size: 0.74rem;
+  color: var(--text-sub);
+  background: rgba(100, 116, 139, 0.06);
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-top: 2px;
+  line-height: 1.35;
+}
+
+/* 展開按鈕 */
+.btn-toggle {
+  background: transparent;
+  border: 1px dashed var(--border);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.btn-toggle:hover {
+  background: rgba(37, 99, 235, 0.04);
 }
 
 .exit-block {
@@ -140,22 +225,21 @@ body {
 }
 
 .exit-title {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: var(--exit-text);
 }
 
 .exit-content {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--exit-text);
-  line-height: 1.45;
+  line-height: 1.4;
   opacity: 0.95;
 }
 
 .action-bar {
   display: flex;
   gap: 8px;
-  margin-top: 4px;
 }
 
 .btn-action {
@@ -188,9 +272,17 @@ body {
   background: rgba(100, 116, 139, 0.16);
 }
 
+/* ♿ 無障礙鍵盤焦點外框 */
+.btn-action:focus-visible,
+.lang-btn:focus-visible,
+.btn-toggle:focus-visible,
+.feedback-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .feedback-box {
   text-align: center;
-  margin-top: -4px;
 }
 
 .feedback-link {
@@ -203,6 +295,7 @@ body {
   text-decoration: underline;
 }
 
+/* Toast 防爆版與窄屏居中 */
 .toast {
   position: absolute;
   bottom: 60px;
@@ -217,7 +310,10 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   pointer-events: none;
   animation: fadeInOut 2.2s forwards;
-  white-space: nowrap;
+  white-space: normal;
+  max-width: calc(100% - 48px);
+  text-align: center;
+  line-height: 1.4;
   z-index: 10;
 }
 
@@ -238,15 +334,15 @@ body {
 
 .card-footer {
   border-top: 1px solid var(--border);
-  padding-top: 10px;
+  padding-top: 8px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .footer-note {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--text-sub);
 }
@@ -255,4 +351,11 @@ body {
   font-size: 0.65rem;
   color: var(--text-sub);
   opacity: 0.8;
+}
+
+.empty-state {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  text-align: center;
+  padding: 16px;
 }
