@@ -7,10 +7,10 @@
   <!-- 🔍 Google 站長驗證 -->
   <meta name="google-site-verification" content="JZ5UohX-CcP_fQV0_DI9VadkKY4ZoTTkUifL88-fIcY">
 
-  <!-- 🔍 基礎 SEO 核心標籤 -->
-  <title id="doc-title">Rail Peace 鐵和平 | 港鐵通勤低摩擦心法卡</title>
-  <meta name="description" content="RailPeace 鐵和平是一款為港鐵通勤者量身打造的心法卡。提供無衝突借過話術、門口乘客同理應對、安全退出防線與離線支援，致力於化解車廂推撞焦慮。">
-  <meta name="keywords" content="RailPeace, 鐵和平, 港鐵, 地鐵借過, 車廂衝突, 門神現象, 調解心理學, 公民科技, Civic Tech, PWA, 離線心法">
+  <!-- 🔍 基礎 SEO 核心標籤（統一為香港鐵路通勤，徹底避開商標糾紛） -->
+  <title id="doc-title">RailPeace 鐵和平 | 香港鐵路通勤低摩擦心法卡</title>
+  <meta name="description" content="RailPeace 鐵和平是一款為香港鐵路通勤者量身打造的心法卡。提供無衝突借過話術、門口乘客同理應對、安全退出防線與離線支援，致力於化解車廂推撞焦慮。">
+  <meta name="keywords" content="RailPeace, 鐵和平, 香港鐵路, 地鐵借過, 車廂衝突, 門神現象, 調解心理學, 公民科技, Civic Tech, PWA, 離線心法">
   <meta name="author" content="jackylawck">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://jackylawck.github.io/RailPeace/">
@@ -18,7 +18,7 @@
   <!-- 🌐 Open Graph / Facebook / WhatsApp 社交預覽卡片 -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://jackylawck.github.io/RailPeace/">
-  <meta property="og:title" content="Rail Peace 鐵和平 | 港鐵通勤低摩擦心法卡">
+  <meta property="og:title" content="RailPeace 鐵和平 | 香港鐵路通勤低摩擦心法卡">
   <meta property="og:description" content="搭車遇到車廂人貼人？一張專為通勤者設計的低摩擦借過心法卡，安全第一，唔爭一時。">
   <meta property="og:image" content="https://jackylawck.github.io/RailPeace/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -29,8 +29,8 @@
 
   <!-- 🐦 Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Rail Peace 鐵和平 | 通勤低摩擦借過心法">
-  <meta name="twitter:description" content="搭車遇到車門推撞？專為香港地鐵設計的低摩擦借過心法卡，安全第一，唔爭一時。">
+  <meta name="twitter:title" content="RailPeace 鐵和平 | 通勤低摩擦借過心法">
+  <meta name="twitter:description" content="搭車遇到車門推撞？專為香港鐵路設計的低摩擦借過心法卡，安全第一，唔爭一時。">
   <meta name="twitter:image" content="https://jackylawck.github.io/RailPeace/og-image.png">
 
   <!-- 📱 PWA 與手機主畫面設定 -->
@@ -71,7 +71,7 @@
 <main class="card-container" id="app-card" role="region" aria-labelledby="brand-title">
   <!-- 頂部 Header 與雙語切換 -->
   <header class="card-header">
-    <div class="brand" id="brand-title">Rail Peace 鐵和平</div>
+    <div class="brand" id="brand-title">RailPeace 鐵和平</div>
     <div class="lang-selector" role="group" aria-label="Language Toggle">
       <button class="lang-btn active" id="btn-lang-zh" data-lang="zh-HK" type="button" aria-pressed="true">繁中</button>
       <button class="lang-btn" id="btn-lang-en" data-lang="en" type="button" aria-pressed="false">EN</button>
@@ -81,7 +81,7 @@
   <!-- 核心掛載點：動態場景容器 (由 scenarios.js 動態注入) -->
   <div id="scenarios-container" class="scenarios-list"></div>
 
-  <!-- 展開/收起更多場景按鈕 (補齊 aria-expanded) -->
+  <!-- 展開/收起更多場景按鈕 -->
   <button id="btn-toggle-scenarios" class="btn-toggle" type="button" aria-expanded="false"></button>
 
   <!-- 安全退路 -->
@@ -104,10 +104,14 @@
   <!-- 狀態提示條 (Toast) -->
   <div class="toast" id="app-toast" role="status" aria-live="polite" hidden></div>
 
-  <!-- 底部備註 -->
+  <!-- 底部備註與法規合規鏈結入口 -->
   <footer class="card-footer">
     <div class="footer-note" id="text-footer-note"></div>
     <div class="footer-legal" id="text-footer-legal"></div>
+    <div class="footer-links" style="font-size: 0.65rem; margin-top: 4px;">
+      <a href="./PRIVACY.md" target="_blank" rel="noopener noreferrer" style="color: var(--text-sub); text-decoration: underline; margin-right: 8px;">Privacy (零個資收集)</a>
+      <a href="./COMPLIANCE.md" target="_blank" rel="noopener noreferrer" style="color: var(--text-sub); text-decoration: underline;">Compliance (法規與免責)</a>
+    </div>
   </footer>
 </main>
 
