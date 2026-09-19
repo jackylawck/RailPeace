@@ -1,8 +1,9 @@
 # RailPeace 鐵和平 🚇🕊️
 
-> **香港鐵路通勤微調解心法卡**  
-> *A Low-Friction Transit Mediation Cheatsheet for Hong Kong Commuters.*
+> **香港鐵路通勤「低摩擦」避火拆彈心法卡**  
+> *A Low-Friction Transit De-escalation Cheatsheet for Hong Kong Commuters.*
 
+[![CI](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jackylawck/RailPeace/blob/main/LICENSE)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-success.svg)](https://jackylawck.github.io/RailPeace/)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)](#-技術規格與架構-tech-stack)
@@ -12,58 +13,58 @@
 ## 繁體中文
 
 ### 💡 專案緣起 (Origin)
-香港鐵路系統（包括各繁忙地下鐵網絡）是全球客運量最高、最密集的公共運輸之一。在上下班高峰期，車廂內「人貼人」、車門前「門神塞路」等空間擁擠極易觸發通勤者的急性焦慮與口角衝突。
+香港鐵路系統是全球客運量最高、最擁擠的公共運輸網絡之一。上下班高峰期車廂內「人貼人」、車門前「人肉門神塞路」，極易引發通勤摩擦與急性火氣。
 
-**RailPeace 鐵和平** 是一項純粹的公民科技（Civic Tech）實驗。我們融合**調解心理學（Mediation / ADR）**與**微觀人際溝通心法**，將話術精煉至高壓環境可負擔的短句，提供：
-1. **卸力緩衝**：以香港本地社交潤滑劑「唔好意思」開頭，消除命令感與對抗性。
-2. **利益共贏**：陳述即時行動對彼此的實質好處（如「移入少少等後面都上到」、「等我入中間企，唔塞住你個位」）。
-3. **退路防線**：為每個情境設立明確的嘗試上限（`maxAttempts`）與不可開口紅線（`abortConditions`），安全第一，不爭一時。
+**RailPeace 鐵和平** 是一張專為打工仔設計的**生活降溫微心法卡**。我們不講高深學問，只專注於高壓車廂當下最實用的「避火溝通」：
+1. **禮貌卸力**：以香港本地社交潤滑劑「唔好意思」開頭，一秒卸下對方防禦心態。
+2. **講出好處**：講出具體動作對大家的即時好處（如「移入少少等後面都上到」、「出咗大家都有位企」），彼此都有台階下。
+3. **安全退路**：每種情況最多只講一至兩次（`maxAttempts`），對方有敵意即時閉口退後（`abortConditions`），安全第一，返工唔爭一時。
 
 ---
 
 ### 🌟 核心特色 (Core Features)
 
-* **調解專家審定心法**：
+* **通勤避火實戰設計**：
   * **日常 Top 3 核心**：聚焦解決「門口塞住」、「移入走廊」、「人貼人輕碰」三大高頻摩擦。
-  * **非語言替代方案 (Silent Options)**：為社恐、聽障、語言不通或高壓情境提供安全體態指引（如「眼神望向走廊 + 掌心微示意」，嚴禁具挑釁感的手指指人）。
-  * **衝突熔斷機制**：面對挑釁或攻擊性對象時，嚴格鎖定「零對抗、禁開口、避開視線並退後」。
+  * **無聲避火動作 (Silent Options)**：為社恐、聽歌乘客或高壓環境提供安全肢體指引（如「眼神望向走廊 + 掌心微示意」，嚴禁具攻擊性的手指指人）。
+  * **極速降溫防線**：面對惡意挑釁時，唯一策略為「零對抗、禁開口、避開視線並退後」。
 * **極致工程衛生 (Engineering Hygiene)**：
-  * **Zero `innerHTML`**：全站動態節點皆透過安全 DOM Token 解析與 `replaceChildren()` 掛載，杜絕 XSS 隱患。
-  * **零依賴 PWA**：純原生 ES Modules，配備 Service Worker 智慧快取（Network First 導航 + 核心模組離線快取），地下鐵斷網照常秒開。
-  * **流暢無視覺競態**：全面採用 Web Animations API (WAAPI) 驅動微提示，並具備完整實例生命週期管理（`cancel` / `onfinish`），杜絕重排閃爍。
+  * **Zero `innerHTML`**：全站動態節點皆透過安全 DOM Token 解析與原生 API 掛載，杜絕 XSS 隱患。
+  * **零依賴 PWA**：純原生 ES Modules，配備 Service Worker 智慧快取，地下鐵斷網照常秒開。
+  * **流暢無視覺競態**：全面採用 Web Animations API (WAAPI) 驅動微提示，絕無卡頓閃爍。
   * **深色模式優化**：為三級風險標籤量身調和低刺激色調，夜間乘車不刺眼。
 
 ---
 
-### 📱 核心話術速查 (Quick Reference)
+### 📱 核心避火話術速查 (Quick Reference)
 
-| 情境 | 風險等級 | 調解雙贏話術 | 非語言行動指引 |
+| 情境 | 風險等級 | 避火雙贏話術 | 無聲行動指引 |
 | :--- | :---: | :--- | :--- |
-| **門口塞住（入面有位）** | 🟢 常用 (Max 2x) | 「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」 | 眼神望向走廊 + 掌心向上微示意 + 側身帶頭移入 |
-| **已上車想入走廊** | 🟢 常用 (Max 2x) | 「唔好意思借借，等我入中間企，唔塞住你個位，唔該。」 | 視線望向車廂內部空隙 + 側身順向微移 |
-| **人貼人輕碰／急煞** | 🟢 常用 (Max 2x) | 「唔好意思！好迫撞到你，大家頂住先，唔好意思。」 | 扶穩扶手 + 雙手收胸前點頭示好致歉 |
-| **對方有攻擊性／挑釁** | 🔴 高風險 (禁開口) | *(專業紅線：嚴禁開口對罵)* | 移開視線 · 安靜退後一步 · 側身避開對峙 · 遇險按通話器 |
+| **門口塞住（入面有位）** | 🟢 常用 (最多2次) | 「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」 | 眼神望向走廊 + 掌心向上微示意 + 側身帶頭移入 |
+| **已上車想入走廊** | 🟢 常用 (最多2次) | 「麻煩借少少位，等我入中間企，唔塞住大家，唔該。」 | 視線望向車廂內部空隙 + 側身順向微移 |
+| **人貼人輕碰／急煞** | 🟢 常用 (最多2次) | 「唔好意思！好迫撞到你，下站有人落車無咁迫，唔好意思。」 | 扶穩扶手 + 雙手收胸前點頭示好致歉 |
+| **對方有攻擊性／挑釁** | 🔴 高風險 (禁開口) | *(安全紅線：嚴禁開口對罵)* | 移開視線 · 安靜退後一步 · 側身避開對峙 · 遇險按通話器 |
 
 ---
 
 ## English
 
 ### 💡 Overview
-The Hong Kong rapid transit network is among the world's most heavily utilized and densely packed urban rail systems. During peak rush hours, acute spatial tension and congested doorways frequently trigger commuter friction and verbal altercations.
+The Hong Kong transit network is among the densest in the world. During peak rush hours, acute spatial tension and congested doorways frequently trigger commuter friction and stress.
 
-**RailPeace** is an open-source civic tech micro-tool grounded in **professional mediation and Alternative Dispute Resolution (ADR) principles**. It offers commuters practical, low-cognitive-load communication patterns designed to:
-1. **De-escalate Instantly**: Leverage culturally resonant verbal buffers (*"Excuse me" / "唔好意思"*) to disarm perceived confrontation.
-2. **Frame Mutual Benefit**: Center requests on collective spatial relief rather than personal entitlement (e.g., *"Moving in lets folks behind board"* or *"Moving center so I don't crowd your space"*).
-3. **Establish Exit Boundaries**: Define strict attempt limits (`maxAttempts`) and safety abort criteria (`abortConditions`) to ensure personal safety always supersedes argument.
+**RailPeace** is an open-source civic tech micro-tool designed for **daily transit de-friction**. It offers practical, low-cognitive-load communication hacks to help commuters stay calm and de-escalate tension:
+1. **De-escalate Instantly**: Open with culturally resonant buffers (*"Excuse me" / "唔好意思"*) to disarm perceived confrontation.
+2. **Frame Mutual Benefit**: Center requests on collective spatial relief rather than personal entitlement (e.g., *"Moving in lets folks behind board"* or *"Stepping out frees up room for everyone"*).
+3. **Establish Safe Boundaries**: Strict attempt limits (`maxAttempts`) and safety abort rules (`abortConditions`) ensure personal safety always takes priority over argument.
 
 ---
 
 ### 🌟 Technical Highlights
 
-* **100% Native Vanilla Stack**: Built with vanilla ES Modules, native DOM APIs, and zero build or runtime dependencies.
+* **100% Native Vanilla Stack**: Pure ES Modules, native DOM APIs, and zero dependencies.
 * **Security & Clean Architecture**: Zero `innerHTML` usage across the codebase; deterministic token parsing via `dom-utils.js`.
-* **Offline-First PWA**: Configured with smart Service Worker caching (Network First for navigation, Cache First for assets) guaranteeing reliable offline use inside underground transit tunnels.
-* **Zero-Glitch Animations**: WAAPI-driven toasts with cancellation tracking, eliminating race conditions and layout thrashing hacks.
+* **Offline-First PWA**: Smart Service Worker caching (Network First for navigation, Cache First for assets) guaranteeing offline availability in underground transit tunnels.
+* **Zero-Glitch Transitions**: WAAPI-driven toasts with cancellation tracking, eliminating race conditions.
 * **Accessibility (a11y)**: Accessible focus rings (`:focus-visible`), explicit `aria-pressed`, and `aria-expanded` toggle states.
 
 ---
@@ -126,7 +127,7 @@ RailPeace/
 │   ├── dom-utils.js           # 零 DOM 依賴之安全 Token 字串解析工具
 │   ├── i18n.js                # 雙語語意字典與退路標籤定義
 │   ├── language.js            # 純函式語言決策與 Storage 異常防禦模組
-│   └── scenarios.js           # 調解專家審定通勤心法資料庫
+│   └── scenarios.js           # 通勤避火心法資料庫
 ├── test/
 │   └── app.test.js            # 原生 Node.js 單元邏輯與 Schema 契約測試
 ├── index.html                 # 語意化 HTML5、嚴格 CSP 安全防禦設定
@@ -144,7 +145,7 @@ RailPeace/
 
 歡迎提交 Pull Request 或開立 Issue 分享你在車廂中的實戰體驗！
 
-* 新增或修訂話術時，請確保符合 **調解雙贏原則** 與 **15 字低認知負荷上限**。
+* 新增或修訂話術時，請確保符合 **雙贏避火原則** 與 **25 字低認知負荷上限**。
 * 任何代碼提交前，請確保本地執行 `npm test` 與 `npm run lint` 均為綠燈通過。
 
 ---
@@ -152,5 +153,3 @@ RailPeace/
 ## 📄 開源授權 (License)
 
 本專案基於 [MIT License](https://github.com/jackylawck/RailPeace/blob/main/LICENSE?utm_source=gemini) 條款開源發布。
-
-
