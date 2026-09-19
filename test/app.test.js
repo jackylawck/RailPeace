@@ -54,9 +54,10 @@ test("I18N Integrity: dictionaries must match and tokens must be valid", () => {
   });
 });
 
-test("Scenarios Schema: Rigorous validation for ADR principles and 15-char limit", () => {
+test("Scenarios Schema: Rigorous validation for ADR principles and 25-char limit", () => {
   const CORE_PRIORITY_THRESHOLD = 3;
   const MIN_CORE_SCENARIOS = 3;
+  const MAX_SCRIPT_LENGTH = 25; // 調解心理學實戰上限：保留「唔好意思」與雙贏說明
 
   ["zh-HK", "en"].forEach((lang) => {
     const items = SCENARIOS[lang];
@@ -86,12 +87,12 @@ test("Scenarios Schema: Rigorous validation for ADR principles and 15-char limit
       assert.equal(typeof item.priority, "number", `Scenario ${item.id} priority must be a number`);
       assert.equal(typeof item.maxAttempts, "number", `Scenario ${item.id} maxAttempts must be a number`);
 
-      // 嚴格驗證：中文主話術在保留「唔好意思」之餘，字數限制在 15 字以內
+      // 中文主話術字數驗證：上限放寬至 25 字，保留人情味與雙贏動機
       if (lang === "zh-HK" && item.primaryScript) {
-        const cleanScript = item.primaryScript.replace(/[「」]/g, "");
+        const cleanScript = item.primaryScript.replace(/[「」\s]/g, "");
         assert.ok(
-          cleanScript.length <= 15,
-          `Script for ${item.id} exceeds 15 chars: "${cleanScript}" (${cleanScript.length} chars)`
+          cleanScript.length <= MAX_SCRIPT_LENGTH,
+          `Script for ${item.id} exceeds ${MAX_SCRIPT_LENGTH} chars: "${cleanScript}" (${cleanScript.length} chars)`
         );
       }
     });
