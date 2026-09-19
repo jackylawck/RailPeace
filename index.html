@@ -2,7 +2,7 @@
 <html lang="zh-HK" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover, interactive-widget=resizes-content">
   
   <!-- 🔍 Google 站長驗證 -->
   <meta name="google-site-verification" content="JZ5UohX-CcP_fQV0_DI9VadkKY4ZoTTkUifL88-fIcY">
@@ -72,17 +72,17 @@
   <!-- 頂部 Header 與雙語切換 -->
   <header class="card-header">
     <div class="brand" id="brand-title">RailPeace 鐵和平</div>
-    <div class="lang-selector" role="group" aria-label="Language Toggle">
+    <nav class="lang-selector" role="group" aria-label="Language Toggle">
       <button class="lang-btn active" id="btn-lang-zh" data-lang="zh-HK" type="button" aria-pressed="true">繁中</button>
       <button class="lang-btn" id="btn-lang-en" data-lang="en" type="button" aria-pressed="false">EN</button>
-    </div>
+    </nav>
   </header>
 
   <!-- 核心掛載點：動態場景容器 (由 scenarios.js 動態注入) -->
-  <div id="scenarios-container" class="scenarios-list"></div>
+  <div id="scenarios-container" class="scenarios-list" role="region" aria-live="polite"></div>
 
   <!-- 展開/收起更多場景按鈕 -->
-  <button id="btn-toggle-scenarios" class="btn-toggle" type="button" aria-expanded="false"></button>
+  <button id="btn-toggle-scenarios" class="btn-toggle" type="button" aria-expanded="false" aria-controls="scenarios-container"></button>
 
   <!-- 安全退路 -->
   <section class="exit-block" aria-labelledby="title-exit">
