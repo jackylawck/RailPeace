@@ -27,7 +27,7 @@ export const I18N = Object.freeze({
 
     // 分享卡片（100% 精準對齊 scenarios.js 最新 Top 3 話術與去人稱化原則）
     shareTitle: "RailPeace 鐵和平 | 香港鐵路車廂避火拆彈心法卡",
-    shareText: "搭車好迫好易有火氣？呢張「車廂避火拆彈心法卡」好實用：\n\n1.【門口塞住】「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」\n2.【入走廊】「麻煩借一借，入中間企大家都鬆啲，唔該晒！」\n3.【人貼人碰撞】「唔好意思！真係好迫，大家頂一頂，唔好意思。」\n🛑【遇挑釁】眼神移開退半步，安全第一唔爭一時。"
+    shareText: "搭車好迫好易有火氣？呢張「車廂避火拆彈心法卡」好實用：\n\n1.【行入中間】「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」\n2.【入走廊】「麻煩借一借，入中間企大家都鬆啲，唔該晒！」\n3.【人貼人碰撞】「唔好意思！真係好迫，大家頂一頂，唔好意思。」\n🛑【遇挑釁】眼神移開退半步，安全第一唔爭一時。"
   }),
   "en": Object.freeze({
     docTitle: "RailPeace | Low-Friction Commuter Cheatsheet",
@@ -54,6 +54,6 @@ export const I18N = Object.freeze({
 
     // English Share Card (Strictly aligned with current Top 3 & de-personalized phrasing)
     shareTitle: "RailPeace | Low-Friction Commuter Cheatsheet",
-    shareText: "Tired of crowded train friction? Transit de-escalation cheatsheet:\n\n1. [Door Jam] \"Excuse me, space inside—moving in lets folks behind board, thanks!\"\n2. [Boarding Aisle] \"Pardon me, moving center gives everyone more room, thanks!\"\n3. [Body Contact] \"Sorry! Really packed in here—let's all hang in there, apologies!\"\n🛑 [Hostile] Break eye contact, step back calmly. Safety first."
+    shareText: "Tired of crowded train friction? Transit de-escalation cheatsheet:\n\n1. [Move Inward] \"Excuse me, space inside—moving in lets folks behind board, thanks!\"\n2. [Boarding Aisle] \"Pardon me, moving center gives everyone more room, thanks!\"\n3. [Body Contact] \"Sorry! Really packed in here—let's all hang in there, apologies!\"\n🛑 [Hostile] Break eye contact, step back calmly. Safety first."
   })
 });
