@@ -78,13 +78,14 @@ export class RailPeaceApp {
   toggleScenarios() {
     this.isExpanded = !this.isExpanded;
     this.renderScenarios();
-    this.updateToggleButtonText();
+    this.updateToggleButtonState();
   }
 
-  updateToggleButtonText() {
+  updateToggleButtonState() {
     if (!this.btnToggle) return;
     const d = I18N[this.currentLang] || {};
     this.btnToggle.textContent = this.isExpanded ? (d.btnCollapse || "") : (d.btnExpand || "");
+    this.btnToggle.setAttribute("aria-expanded", this.isExpanded ? "true" : "false");
   }
 
   renderScenarios() {
@@ -92,8 +93,9 @@ export class RailPeaceApp {
     
     const d = I18N[this.currentLang] || {};
     const list = SCENARIOS[this.currentLang] || [];
+    const isEn = this.currentLang === "en";
     
-    // 首頁展示 priority <= 3 之核心情境（涵蓋 hostile、alight、door-jam、board）
+    // 首頁展示 priority <= 3 之核心情境（門口塞住、入走廊、人貼人輕碰）
     const visibleScenarios = this.isExpanded 
       ? list 
       : list.filter(item => typeof item.priority === "number" && item.priority <= 3);
@@ -126,8 +128,8 @@ export class RailPeaceApp {
         const attemptBadge = document.createElement("span");
         attemptBadge.className = "attempt-badge";
         attemptBadge.textContent = item.maxAttempts === 0 
-          ? (this.currentLang === "en" ? "Do Not Speak" : "禁開口")
-          : (this.currentLang === "en" ? `Max ${item.maxAttempts}x` : `最多講${item.maxAttempts}次`);
+          ? (isEn ? "Do Not Speak" : "禁開口")
+          : (isEn ? `Max ${item.maxAttempts}x` : `最多講${item.maxAttempts}次`);
         metaGroup.appendChild(attemptBadge);
       }
 
@@ -149,25 +151,26 @@ export class RailPeaceApp {
       header.appendChild(metaGroup);
       section.appendChild(header);
 
-      // 主要話術（若為 null 如 hostile 則不渲染）
-      if (item.primaryScript) {
+      // 主要話術（對齊 scenarios.js 的單一欄位 item.script）
+      if (item.script) {
         const quote = document.createElement("div");
         quote.className = "script-quote";
-        quote.textContent = item.primaryScript;
+        quote.textContent = item.script;
         section.appendChild(quote);
       }
 
-      // 非語言動作
+      // 無聲避火動作指引
       const silent = document.createElement("div");
       silent.className = "script-silent";
       silent.textContent = item.silentOption || "";
       section.appendChild(silent);
 
-      // 退路指引
+      // 安全退路指引（雙語前綴支援）
       if (item.exitRule) {
         const exitNote = document.createElement("div");
         exitNote.className = "script-exit-rule";
-        exitNote.textContent = `🛡️ 退路：${item.exitRule}`;
+        const prefix = isEn ? "🛡️ Boundary: " : "🛡️ 退路：";
+        exitNote.textContent = `${prefix}${item.exitRule}`;
         section.appendChild(exitNote);
       }
 
@@ -195,7 +198,7 @@ export class RailPeaceApp {
     }
 
     this.renderScenarios();
-    this.updateToggleButtonText();
+    this.updateToggleButtonState();
 
     if (this.titleExit) this.titleExit.textContent = d.exitTitle || "";
     renderWithStrong(this.descExit, d.exitText || "");
