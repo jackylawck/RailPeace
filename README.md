@@ -3,6 +3,7 @@
 > **香港鐵路通勤「低摩擦」避火拆彈心法卡**  
 > *A Low-Friction Transit De-escalation Cheatsheet for Hong Kong Commuters.*
 
+[![CI](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jackylawck/RailPeace/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/jackylawck/RailPeace/blob/main/LICENSE)
 [![PWA Ready](https://img.shields.io/badge/PWA-Ready-success.svg)](https://jackylawck.github.io/RailPeace/)
 [![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen.svg)](#-技術規格與架構-tech-stack)
@@ -41,7 +42,7 @@
 
 | 情境 | 風險等級 | 避火雙贏話術 | 無聲行動指引 |
 | :--- | :---: | :--- | :--- |
-| **行入車廂中間：門口塞住入面有位？** | 🟢 常用 (最多2次) | 「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」 | 眼神望向走廊 + 掌心向上微示意 + 側身帶頭移入 |
+| **行入車廂中間：門口塞住但入面有位？** | 🟢 常用 (最多2次) | 「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」 | 眼神望向走廊 + 掌心向上微示意 + 側身帶頭移入 |
 | **已上車想入走廊？** | 🟢 常用 (最多2次) | 「麻煩借一借，入中間企大家都鬆啲，唔該晒！」 | 視線望向車廂內部空隙 + 側身順向微移 |
 | **車廂人貼人時輕碰／晃動？** | 🟢 常用 (最多2次) | 「唔好意思！真係好迫，大家頂一頂，唔好意思。」 | 扶穩扶手 + 雙手收胸前點頭示好致歉 |
 | **對方有攻擊性／挑釁？** | 🔴 高風險 (禁開口) | *(安全紅線：嚴禁開口對罵)* | 移開視線 · 安靜退後一步 · 側身避開對峙 · 遇險按通話器 |
@@ -144,13 +145,64 @@ RailPeace/
 
 ## 🤝 參與貢獻 (Contributing)
 
-歡迎提交 Pull Request 或開立 Issue 分享你在車廂中的實戰體驗！
+無論是日常搭車的通勤者，還是開源工程師，都歡迎為這個避火工具添磚加瓦！
 
-* 新增或修訂話術時，請確保符合 **雙贏避火原則** 與 **25 字低認知負荷上限**。
-* 任何代碼提交前，請確保本地執行 `npm test` 與 `npm run lint` 均為綠燈通過。
+### 💬 方式一：分享實戰話術或情境（無須寫代碼）
+
+如果你在車廂中遇到特別的摩擦情境，或有更順耳、更避火的廣東話金句，歡迎直接開立 Issue：
+
+👉 [點擊提交場景建議 (GitHub Issues)](https://github.com/jackylawck/RailPeace/issues/new?utm_source=gemini)
+
+---
+
+### 💻 方式二：提交代碼與數據修訂 (Pull Request)
+
+1. **Fork 本倉庫** 並複製到本地。
+2. **新增或修改場景資料庫**：
+* 主要檔案：[`js/scenarios.js`](https://www.google.com/search?q=js/scenarios.js&utm_source=gemini)
+* 繁中 (`zh-HK`) 與英文 (`en`) 需同步新增對應資料。
+* **Schema 規格要求**：
+```javascript
+{
+  id: "your-scenario-id",          // 唯一識別碼
+  priority: 9,                     // 優先序（1-3 為首頁核心，其餘需點展開）
+  riskLevel: "LOW",                // LOW | MEDIUM | HIGH
+  defaultAction: "SPEAK",          // SPEAK | SILENT
+  tag: "情境標籤（如：降低聲量：...）",
+  script: "「話術內容（嚴格限 25 字內）」", // HIGH 風險挑釁情境請設為 null
+  silentOption: "🤐 非語言安全動作指引",
+  maxAttempts: 1,                  // 最多嘗試次數（0-2）
+  exitRule: "退路指引與安全界線",
+  abortConditions: ["中止條件"]
+}
+
+```
+
+
+
+
+3. **遵守核心心法原則**：
+* **多講「大家」少講「你/我」**：不指責對方，著重全體利益與台階。
+* **25 字認知上限**：高壓車廂必須 2 秒內可照著讀出。
+* **肢體不指人**：嚴禁手指指向他人，統一採用「眼神引導 + 掌心微示意」。
+
+
+4. **本地驗證與提交**：
+* 提交前確保執行通過原生測試與代碼風格檢查：
+```bash
+npm test
+npm run lint
+
+```
+
+
+* 發起 Pull Request，CI 自動檢查綠燈後即可合併。
+
+
 
 ---
 
 ## 📄 開源授權 (License)
 
 本專案基於 [MIT License](https://github.com/jackylawck/RailPeace/blob/main/LICENSE?utm_source=gemini) 條款開源發布。
+
