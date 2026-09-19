@@ -1,5 +1,10 @@
 /**
- * 車廂雙贏微心法庫
+ * 香港鐵路通勤雙贏微調解心法庫 (RailPeace Scenario Database)
+ * 
+ * 調解核心原則：
+ * 1. 語言緩衝：以「唔好意思」卸力，融入共贏與同理心，話術長度嚴格控制於 25 字內。
+ * 2. 肢體規範：嚴禁「手指指向」空間或乘客（避免挑釁感），一律採「眼神引導 + 掌心微示意」。
+ * 3. 安全邊界：Top 3 聚焦日常高頻摩擦，極端敵意情境鎖定「零開口 (SILENT) + 視線移開後退」。
  */
 export const SCENARIOS = Object.freeze({
   "zh-HK": [
@@ -48,7 +53,7 @@ export const SCENARIOS = Object.freeze({
       riskLevel: "HIGH",
       defaultAction: "SILENT",
       tag: "對方有攻擊性／挑釁？",
-      primaryScript: null,
+      primaryScript: null, // 專業紅線：嚴禁開口對罵
       fallbackScript: null,
       silentOption: "🤐 移開視線 · 安靜退後一步 · 側身避開對峙",
       maxAttempts: 0,
@@ -93,7 +98,7 @@ export const SCENARIOS = Object.freeze({
       tag: "未等落車搶先湧入？",
       primaryScript: "「唔好意思，等出完先入，大家都快，唔該。」",
       fallbackScript: "「借借，落完先上，大家唔使逼，唔該晒。」",
-      silentOption: "🤐 單手微置腹前做低位防護 + 果斷邁步直出",
+      silentOption: "🤐 單手微置腹前做低位防護 + 側身順流果斷步出",
       maxAttempts: 1,
       exitRule: "陳述物理秩序事實。若對方盲目硬衝，側身讓行以保自身骨骼安全。",
       abortConditions: ["月台發生推擠踩踏風險"]
@@ -120,7 +125,7 @@ export const SCENARIOS = Object.freeze({
       defaultAction: "SPEAK",
       tag: "Door Blocked but Aisle Empty?",
       primaryScript: "\"Excuse me, space inside—moving in lets folks behind board, thanks!\"",
-      fallbackScript: "\"Pardon me, heading inside so we don't jam doorway.\"",
+      fallbackScript: "\"Pardon me, heading inside so we don't jam the doorway.\"",
       silentOption: "🤐 Look toward aisle + open-palm motion + calmly lead inward",
       maxAttempts: 2,
       exitRule: "If door chimes ring and crowd is frozen, step back to avoid door traps.",
