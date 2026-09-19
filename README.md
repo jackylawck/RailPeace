@@ -15,17 +15,19 @@
 ### 💡 專案緣起 (Origin)
 香港鐵路系統是全球客運量最高、最擁擠的公共運輸網絡之一。上下班高峰期車廂內「人貼人」、車門前「人肉門神塞路」，極易引發通勤摩擦與急性火氣。
 
-**RailPeace 鐵和平** 是一張專為打工仔設計的**生活降溫微心法卡**。我們不講高深學問，只專注於高壓車廂當下最實用的「避火溝通」：
-1. **禮貌卸力**：以香港本地社交潤滑劑「唔好意思」開頭，一秒卸下對方防禦心態。
-2. **講出好處**：講出具體動作對大家的即時好處（如「移入少少等後面都上到」、「出咗大家都有位企」），彼此都有台階下。
-3. **安全退路**：每種情況最多只講一至兩次（`maxAttempts`），對方有敵意即時閉口退後（`abortConditions`），安全第一，返工唔爭一時。
+官方宣傳常提倡「畀心」與禮儀口號，但在逼車、趕時間的當下，成年人需要的是**不尷尬、講得出、能解窘的具體溝通工具**。
+
+**RailPeace 鐵和平** 是一張專為打工仔設計的**生活降溫微心法卡**。我們不講高深學問，專注於車廂當下最實用的「避火溝通」：
+1. **社交前綴卸力**：求助用「唔好意思」、日常借過用「麻煩借一借」、維持秩序用「大家稍為等等」，分寸拿捏得當，一秒卸下防禦。
+2. **去「你/我」多講「大家」**：不指責個人對錯，將焦點拉升至車廂集體利益（如「入中間企大家都鬆啲」、「出晒先入會仲快」）。
+3. **安全邊界與退路**：每種情況最多嘗試一至兩次（`maxAttempts`），對方若有挑釁或敵意立即閉口退後半步（`abortConditions`），安全第一，返工唔爭一時。
 
 ---
 
 ### 🌟 核心特色 (Core Features)
 
 * **通勤避火實戰設計**：
-  * **日常 Top 3 核心**：聚焦解決「門口塞住」、「移入走廊」、「人貼人輕碰」三大高頻摩擦。
+  * **日常 Top 3 核心**：聚焦解決「行入中間」、「移入走廊」、「人貼人輕碰」三大高頻摩擦。
   * **無聲避火動作 (Silent Options)**：為社恐、聽歌乘客或高壓環境提供安全肢體指引（如「眼神望向走廊 + 掌心微示意」，嚴禁具攻擊性的手指指人）。
   * **極速降溫防線**：面對惡意挑釁時，唯一策略為「零對抗、禁開口、避開視線並退後」。
 * **極致工程衛生 (Engineering Hygiene)**：
@@ -40,10 +42,10 @@
 
 | 情境 | 風險等級 | 避火雙贏話術 | 無聲行動指引 |
 | :--- | :---: | :--- | :--- |
-| **門口塞住（入面有位）** | 🟢 常用 (最多2次) | 「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」 | 眼神望向走廊 + 掌心向上微示意 + 側身帶頭移入 |
-| **已上車想入走廊** | 🟢 常用 (最多2次) | 「麻煩借少少位，等我入中間企，唔塞住大家，唔該。」 | 視線望向車廂內部空隙 + 側身順向微移 |
-| **人貼人輕碰／急煞** | 🟢 常用 (最多2次) | 「唔好意思！好迫撞到你，下站有人落車無咁迫，唔好意思。」 | 扶穩扶手 + 雙手收胸前點頭示好致歉 |
-| **對方有攻擊性／挑釁** | 🔴 高風險 (禁開口) | *(安全紅線：嚴禁開口對罵)* | 移開視線 · 安靜退後一步 · 側身避開對峙 · 遇險按通話器 |
+| **行入車廂中間：門口塞住入面有位？** | 🟢 常用 (最多2次) | 「唔好意思，中間仲有位，移入少少等後面都上到，唔該晒！」 | 眼神望向走廊 + 掌心向上微示意 + 側身帶頭移入 |
+| **已上車想入走廊？** | 🟢 常用 (最多2次) | 「麻煩借一借，入中間企大家都鬆啲，唔該晒！」 | 視線望向車廂內部空隙 + 側身順向微移 |
+| **車廂人貼人時輕碰／晃動？** | 🟢 常用 (最多2次) | 「唔好意思！真係好迫，大家頂一頂，唔好意思。」 | 扶穩扶手 + 雙手收胸前點頭示好致歉 |
+| **對方有攻擊性／挑釁？** | 🔴 高風險 (禁開口) | *(安全紅線：嚴禁開口對罵)* | 移開視線 · 安靜退後一步 · 側身避開對峙 · 遇險按通話器 |
 
 ---
 
@@ -53,8 +55,8 @@
 The Hong Kong transit network is among the densest in the world. During peak rush hours, acute spatial tension and congested doorways frequently trigger commuter friction and stress.
 
 **RailPeace** is an open-source civic tech micro-tool designed for **daily transit de-friction**. It offers practical, low-cognitive-load communication hacks to help commuters stay calm and de-escalate tension:
-1. **De-escalate Instantly**: Open with culturally resonant buffers (*"Excuse me" / "唔好意思"*) to disarm perceived confrontation.
-2. **Frame Mutual Benefit**: Center requests on collective spatial relief rather than personal entitlement (e.g., *"Moving in lets folks behind board"* or *"Stepping out frees up room for everyone"*).
+1. **De-escalate Instantly**: Leverage natural Hong Kong conversational buffers (*"Excuse me"*, *"Pardon me"*) to disarm defensiveness immediately.
+2. **De-personalize & Frame Mutual Benefit**: Move away from confrontational "I/You" phrasing to collective benefit (e.g., *"Moving center gives everyone more room"* or *"Exiting first gets everyone in faster"*).
 3. **Establish Safe Boundaries**: Strict attempt limits (`maxAttempts`) and safety abort rules (`abortConditions`) ensure personal safety always takes priority over argument.
 
 ---
@@ -127,7 +129,7 @@ RailPeace/
 │   ├── dom-utils.js           # 零 DOM 依賴之安全 Token 字串解析工具
 │   ├── i18n.js                # 雙語語意字典與退路標籤定義
 │   ├── language.js            # 純函式語言決策與 Storage 異常防禦模組
-│   └── scenarios.js           # 通勤避火心法資料庫
+│   └── scenarios.js           # 通勤避火拆彈心法資料庫
 ├── test/
 │   └── app.test.js            # 原生 Node.js 單元邏輯與 Schema 契約測試
 ├── index.html                 # 語意化 HTML5、嚴格 CSP 安全防禦設定
