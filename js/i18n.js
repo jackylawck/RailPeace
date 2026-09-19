@@ -14,7 +14,7 @@ export const I18N = Object.freeze({
     riskLow: "🟢 常用",
 
     // 按鈕與提示（生活降溫型）
-    btnExpand: "展開更多場景（落車借過、背囊頂住、車廂噪音等）▼",
+    btnExpand: "展開更多場景（先落後上、借扶手柱、車廂寧靜等）▼",
     btnCollapse: "收起擴展場景（保留 Top 3 核心）▲",
     btnShare: "📤 分享畀返工朋友",
     btnCopy: "📋 複製精煉心法卡",
@@ -41,7 +41,7 @@ export const I18N = Object.freeze({
     riskMedium: "🟡 Moderate",
     riskLow: "🟢 Core",
 
-    btnExpand: "Show More Scenarios (Alighting, Backpacks, Noise, etc.) ▼",
+    btnExpand: "Show More Scenarios (Exit First, Rails, Noise, etc.) ▼",
     btnCollapse: "Collapse Scenarios (Show Top 3 Core) ▲",
     btnShare: "📤 Share with Friends",
     btnCopy: "📋 Copy Cheatsheet",
